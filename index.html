@@ -79,6 +79,46 @@
     }
 
     footer a { color: #2563eb; }
+
+    .carousel {
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.carousel-item {
+  min-width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,.5);
+  color: white;
+  border: none;
+  font-size: 28px;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+@media (max-width: 600px) {
+  .carousel-btn {
+    display: none; /* swipe only on mobile */
+  }
+}
   </style>
 </head>
 
@@ -117,13 +157,17 @@
       <li>🏆 Fun animations and coins</li>
       <li>👨‍👩‍👧 Suitable for the whole family</li>
     </ul>
+<div class="carousel">
+  <button class="carousel-btn prev">‹</button>
 
-    <div class="screenshots">
+    <div class="carousel-track">
       <img src="\Screenshot_20260121-130149.png" />
       <img src="Screenshot_20260121-130159.png" />
       <img src="Screenshot_20260121-130211.png" />
       <img src="Screenshot_20260104-095310.png" />
     </div>
+   <button class="carousel-btn next">›</button>
+</div>
   </div>
 </div>
 
@@ -134,6 +178,41 @@
 
   <p>© 2026 Reverse Math Puzzle</p>
 </footer>
+<script>
+  const track = document.querySelector('.carousel-track');
+  const slides = Array.from(track.children);
+  const nextButton = document.querySelector('.carousel-btn.next');
+  const prevButton = document.querySelector('.carousel-btn.prev');
 
+  let index = 0;
+
+  function updateCarousel() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  nextButton.addEventListener('click', () => {
+    index = (index + 1) % slides.length;
+    updateCarousel();
+  });
+
+  prevButton.addEventListener('click', () => {
+    index = (index - 1 + slides.length) % slides.length;
+    updateCarousel();
+  });
+
+  // Touch support
+  let startX = 0;
+
+  track.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+
+  track.addEventListener('touchend', e => {
+    const endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) index = (index + 1) % slides.length;
+    if (endX - startX > 50) index = (index - 1 + slides.length) % slides.length;
+    updateCarousel();
+  });
+</script>
 </body>
 </html>
