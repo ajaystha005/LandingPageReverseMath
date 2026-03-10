@@ -345,53 +345,46 @@
   </footer>
 
   <script>
-    // Scroll animations
-    const animateElements = document.querySelectorAll('.animate, .feature-card');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.2 });
-    animateElements.forEach(el => observer.observe(el));
+  // Animate scroll-in elements
+  const animateElements = document.querySelectorAll('.animate, .feature-card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold:0.2 });
+  animateElements.forEach(el => observer.observe(el));
 
-    // Carousel
-    const track = document.querySelector('.carousel-track');
-    const slides = Array.from(track.children);
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
-    let currentIndex = 0;
+  // Carousel
+  const track = document.querySelector('.carousel-track');
+  const slides = Array.from(track.children);
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let currentIndex = 0;
 
-    function updateCarousel() { track.style.transform = `translateX(-${currentIndex * 100}%)`; }
+  function updateCarousel() { track.style.transform = `translateX(-${currentIndex*100}%)`; }
 
-    nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slides.length; updateCarousel(); });
-    prevBtn.addEventListener('click', () => { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateCarousel(); });
+  nextBtn.addEventListener('click', () => { currentIndex = (currentIndex+1)%slides.length; updateCarousel(); });
+  prevBtn.addEventListener('click', () => { currentIndex = (currentIndex-1+slides.length)%slides.length; updateCarousel(); });
+  setInterval(()=>{ currentIndex=(currentIndex+1)%slides.length; updateCarousel(); },4000);
 
-    setInterval(() => { currentIndex = (currentIndex + 1) % slides.length; updateCarousel(); }, 4000);
+  // Daily Streak Animation
+  document.addEventListener("DOMContentLoaded", function(){
+    let streakDays = 7; // Example current streak
+    let maxStreak = 30; // Max streak
+    const progressBar = document.getElementById('streak-progress');
+    const counter = document.getElementById('streak-counter');
 
-    // Example streak days (you can connect this to backend or localStorage)
-let streakDays = 7; // Current streak
-let maxStreak = 30; // Max possible streak
+    setTimeout(()=>{ progressBar.style.width = `${(streakDays/maxStreak)*100}%`; },100);
 
-const progressBar = document.getElementById('streak-progress');
-const counter = document.getElementById('streak-counter');
-
-// Animate progress bar width
-progressBar.style.width = `${(streakDays / maxStreak) * 100}%`;
-
-// Animate number count up
-let current = 0;
-const interval = setInterval(() => {
-  if (current < streakDays) {
-    current++;
-    counter.textContent = current;
-  } else {
-    clearInterval(interval);
-  }
-}, 100);
-  </script>
+    let current = 0;
+    const interval = setInterval(()=>{
+      if(current < streakDays){ current++; counter.textContent = current; } else { clearInterval(interval); }
+    },100);
+  });
+</script>
 
 </body>
 </html>
