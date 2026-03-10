@@ -243,6 +243,27 @@
     prevBtn.addEventListener('click', () => { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateCarousel(); });
 
     setInterval(() => { currentIndex = (currentIndex + 1) % slides.length; updateCarousel(); }, 4000);
+
+    // Example streak days (you can connect this to backend or localStorage)
+let streakDays = 7; // Current streak
+let maxStreak = 30; // Max possible streak
+
+const progressBar = document.getElementById('streak-progress');
+const counter = document.getElementById('streak-counter');
+
+// Animate progress bar width
+progressBar.style.width = `${(streakDays / maxStreak) * 100}%`;
+
+// Animate number count up
+let current = 0;
+const interval = setInterval(() => {
+  if (current < streakDays) {
+    current++;
+    counter.textContent = current;
+  } else {
+    clearInterval(interval);
+  }
+}, 100);
   </script>
 
 </body>
