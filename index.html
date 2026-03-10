@@ -71,15 +71,64 @@
     }
 
     /* Carousel */
-    .carousel { position: relative; max-width: 900px; margin: 60px auto; overflow: hidden; border-radius: 15px; }
-    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
-    .carousel-track img { width: 100%; flex-shrink: 0; border-radius: 15px; cursor: grab; }
-    .carousel-buttons { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; }
-    .carousel-buttons button {
-      background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px 15px;
-      border-radius: 50%; cursor: pointer; pointer-events: all; font-size: 1.2rem; transition: background 0.3s;
-    }
-    .carousel-buttons button:hover { background: rgba(0,0,0,0.7); }
+    /* Carousel Styles */
+.carousel {
+  position: relative;
+  max-width: 900px; /* desktop max width */
+  margin: 60px auto;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-track img {
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* preserves aspect ratio for both portrait and landscape */
+  border-radius: 15px;
+  cursor: grab;
+}
+
+.carousel-buttons {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.carousel-buttons button {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: all;
+  font-size: 1.2rem;
+  transition: background 0.3s;
+}
+
+.carousel-buttons button:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .carousel {
+    max-width: 95%;
+  }
+  .carousel-track img {
+    width: 100%;
+  }
+}
 
     /* Features */
     .features { background: #fff; padding: 60px 20px; text-align: center; }
