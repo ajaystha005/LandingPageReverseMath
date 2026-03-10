@@ -212,12 +212,18 @@
   margin-bottom: 20px;
 }
 
-.hero h1, .hero p, .download-buttons {
+/* Hero text and button animations */
+.hero h1, .hero p, .download-buttons a {
   opacity: 0;
-  transform: translateY(-20px);
-  transition: all 1s ease;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
 }
 
+/* Staggered fade-in classes */
+.fade-in-1 { transition-delay: 0.3s; }
+.fade-in-2 { transition-delay: 0.6s; }
+.fade-in-3 { transition-delay: 0.9s; }
+    
 /* Floating Puzzle Pieces */
 .puzzle-piece {
   position: absolute;
@@ -278,10 +284,10 @@
     <img src="puzzle_red.png" class="puzzle-piece" alt="Puzzle Piece">
 
     <div class="hero-content">
-    <img src="app_icon_1024.png" alt="Reverse Math Puzzle Logo" class="logo">
-    <h1 class="animate">Reverse Math Puzzle</h1>
-    <p class="animate">Challenge your mind with fun math puzzles. Play Normal Mode or race against the clock in Challenge Mode. Daily streak rewards await!</p>
-    <div class="download-buttons animate">
+    <img src="app_icon_1024.png" alt="Reverse Math Puzzle Logo" class="logo fade-in-1">
+    <h1 class="animate fade-in-1"Reverse Math Puzzle</h1>
+    <p class="animate fade-in-2">Challenge your mind with fun math puzzles. Play Normal Mode or race against the clock in Challenge Mode. Daily streak rewards await!</p>
+    <div class="download-buttons fade-in-3">
       <a href="#" target="_blank">Download for Android</a>
       <a href="#" target="_blank">Download for iOS</a>
     </div>
@@ -384,6 +390,14 @@
       if(current < streakDays){ current++; counter.textContent = current; } else { clearInterval(interval); }
     },100);
   });
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const fadeInElements = document.querySelectorAll('.fade-in-1, .fade-in-2, .fade-in-3');
+  fadeInElements.forEach(el => {
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+  });
+});
 </script>
 
 </body>
