@@ -190,12 +190,94 @@
   margin-bottom: 5px;
   color: #4b79a1;
 }
+
+    /* Hero Section */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #4b79a1, #283e51);
+  color: white;
+  text-align: center;
+  padding: 120px 20px 120px;
+  overflow: hidden;
+}
+
+/* Make sure gradient is visible behind pieces */
+.hero-content {
+  position: relative;
+  z-index: 2; /* content above puzzle pieces */
+}
+
+.hero img.logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.hero h1, .hero p, .download-buttons {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 1s ease;
+}
+
+/* Floating Puzzle Pieces */
+.puzzle-piece {
+  position: absolute;
+  width: 60px;
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite;
+  z-index: 1; /* behind content */
+}
+
+.puzzle-piece:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.puzzle-piece:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
+.puzzle-piece:nth-child(3) { top: 70%; left: 30%; animation-delay: 4s; }
+.puzzle-piece:nth-child(4) { top: 60%; left: 60%; animation-delay: 1s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(15deg); }
+}
+
+/* Download buttons */
+.download-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.download-buttons a {
+  background: #ffcb05;
+  color: #111;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.download-buttons a:hover {
+  background: #f1b600;
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero { padding: 100px 20px 100px; }
+  .puzzle-piece { width: 50px; }
+}
   </style>
 </head>
 <body>
 
   <!-- Hero Header -->
-  <header>
+  <header class="hero">
+
+     <!-- Floating Puzzle Pieces -->
+    <img src="puzzle_blue.png" class="puzzle-piece" alt="Puzzle Piece">
+    <img src="puzzle_yellow.png" class="puzzle-piece" alt="Puzzle Piece">
+    <img src="puzzle_green.png" class="puzzle-piece" alt="Puzzle Piece">
+    <img src="puzzle_red.png" class="puzzle-piece" alt="Puzzle Piece">
+
+    <div class="hero-content">
     <img src="app_icon_1024.png" alt="Reverse Math Puzzle Logo" class="logo">
     <h1 class="animate">Reverse Math Puzzle</h1>
     <p class="animate">Challenge your mind with fun math puzzles. Play Normal Mode or race against the clock in Challenge Mode. Daily streak rewards await!</p>
@@ -203,12 +285,8 @@
       <a href="#" target="_blank">Download for Android</a>
       <a href="#" target="_blank">Download for iOS</a>
     </div>
-
-    <!-- Floating Puzzle Pieces -->
-    <img src="puzzle_blue.png" class="puzzle-piece" alt="Puzzle Piece">
-    <img src="puzzle_yellow.png" class="puzzle-piece" alt="Puzzle Piece">
-    <img src="puzzle_green.png" class="puzzle-piece" alt="Puzzle Piece">
-    <img src="puzzle_red.png" class="puzzle-piece" alt="Puzzle Piece">
+    </div>
+   
   </header>
 
   <!-- Screenshots Carousel -->
