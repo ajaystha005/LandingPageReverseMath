@@ -1,222 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reverse Math Puzzle</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      margin: 0;
-      background: #f6f7fb;
-      color: #111;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
 
+    body { background: #f9f9f9; color: #333; line-height: 1.6; scroll-behavior: smooth; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* Hero Header with Gradient and Floating Puzzle Pieces */
     header {
-      padding: 40px 20px;
-      text-align: center;
-      background: white;
-      box-shadow: 0 2px 20px rgba(0,0,0,.05);
-    }
-
-    .app-icon {
-      width: 120px;
-      height: 120px;
-      border-radius: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.12);
-    }
-
-    h1 { margin: 20px 0 10px; }
-    .tagline { color: #666; }
-
-    .buttons {
-      margin-top: 18px;
-    }
-
-    .buttons a {
-      display: inline-block;
-      padding: 12px 18px;
-      border-radius: 10px;
-      margin: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      background: #2563eb;
+      position: relative;
+      background: linear-gradient(135deg, #4b79a1, #283e51);
       color: white;
-    }
-
-    .section {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 18px;
-    }
-
-    .card {
-      background: white;
-      padding: 24px;
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.06);
-    }
-
-    .screenshots {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      margin-top: 12px;
-    }
-
-    .screenshots img {
-      width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.1);
-    }
-
-    footer {
       text-align: center;
-      padding: 30px;
-      color: #777;
-      font-size: 14px;
+      padding: 100px 20px 100px;
+      overflow: hidden;
     }
 
-    footer a { color: #2563eb; }
+    header img.logo { width: 120px; margin-bottom: 20px; z-index: 2; position: relative; }
 
-    .carousel {
-  position: relative;
-  overflow: hidden;
-  margin: 20px auto;
-  max-width: 360px;   /* phone-like width */
-      max-height: 720px;
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      z-index: 2; position: relative;
+      opacity: 0; transform: translateY(-20px); transition: all 1s ease;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      z-index: 2; position: relative;
+      opacity: 0; transform: translateY(-20px); transition: all 1s ease 0.3s;
+    }
+
+    .download-buttons {
+      display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+      opacity: 0; transform: translateY(-20px); transition: all 1s ease 0.6s;
+      position: relative; z-index: 2;
+    }
+
+    .download-buttons a {
+      background: #ffcb05; color: #111; padding: 12px 25px;
+      border-radius: 8px; font-weight: 700; transition: background 0.3s, transform 0.3s;
+    }
+
+    .download-buttons a:hover { background: #f1b600; transform: translateY(-3px); }
+
+    /* Floating Puzzle Pieces */
+    .puzzle-piece {
+      position: absolute;
+      width: 50px;
+      opacity: 0.3;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .puzzle-piece:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .puzzle-piece:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
+    .puzzle-piece:nth-child(3) { top: 70%; left: 30%; animation-delay: 4s; }
+    .puzzle-piece:nth-child(4) { top: 60%; left: 60%; animation-delay: 1s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(15deg); }
+    }
+
+    /* Carousel */
+    .carousel { position: relative; max-width: 900px; margin: 60px auto; overflow: hidden; border-radius: 15px; }
+    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+    .carousel-track img { width: 100%; flex-shrink: 0; border-radius: 15px; cursor: grab; }
+    .carousel-buttons { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; }
+    .carousel-buttons button {
+      background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px 15px;
+      border-radius: 50%; cursor: pointer; pointer-events: all; font-size: 1.2rem; transition: background 0.3s;
+    }
+    .carousel-buttons button:hover { background: rgba(0,0,0,0.7); }
+
+    /* Features */
+    .features { background: #fff; padding: 60px 20px; text-align: center; }
+    .features h2 { font-size: 2rem; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: all 1s ease; }
+    .feature-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+    .feature-card { background: #f1f1f1; padding: 25px; border-radius: 12px; flex: 1 1 250px; max-width: 300px;
+      transition: transform 0.3s, opacity 0.5s ease; opacity: 0; transform: translateY(20px);
+    }
+    .feature-card:hover { transform: translateY(-5px); }
+    .feature-card h3 { margin-bottom: 15px; color: #4b79a1; }
+    .feature-card p { font-size: 0.95rem; }
+
+    /* Footer */
+    footer { text-align: center; padding: 30px 20px; background: #283e51; color: #fff; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; }
+      .carousel-track img { width: 100%; }
+      .feature-cards { flex-direction: column; }
+      .download-buttons { flex-direction: column; }
+    }
+
+    .streak {
+  background: #f9f9f9;
+  text-align: center;
+  padding: 60px 20px;
 }
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.4s ease;
-}
+.streak h2 { font-size: 2rem; margin-bottom: 15px; }
+.streak p { margin-bottom: 30px; }
 
-.carousel-item {
+.streak-container {
+  display: inline-block;
+  max-width: 400px;
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.15);
 }
 
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,.5);
-  color: white;
-  border: none;
-  font-size: 28px;
-  padding: 6px 14px;
-  cursor: pointer;
-  border-radius: 50%;
-  z-index: 10;
+.streak-bar {
+  width: 100%;
+  height: 25px;
+  background: #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 15px;
 }
 
-.carousel-btn.prev { left: 10px; }
-.carousel-btn.next { right: 10px; }
+.streak-progress {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #ffcb05, #ff6f00);
+  border-radius: 12px;
+  transition: width 1s ease-in-out;
+}
 
-@media (max-width: 600px) {
-  .carousel-btn {
-    display: none; /* swipe only on mobile */
-  }
+.streak-counter {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #4b79a1;
 }
   </style>
 </head>
-
 <body>
 
-<header>
-  <img
-    class="app-icon"
-    src="app_icon_1024.png"
-    alt="Reverse Math Puzzle Icon"
-  />
-
-  <h1>Reverse Math Puzzle</h1>
-  <!--<p class="tagline">Place the numbers. Fix the equation. Feel like a genius.</p>
-  <p class="tagline">Drag the numbers. Beat the clock. Fix the equation.</p>-->
-  <p class="tagline">Drag numbers, race the clock, come back daily to keep your streak alive.</p>
-  
-  <div class="buttons">
-    <a href="{{ANDROID_DOWNLOAD_URL}}">Download for Android</a>
-    <a href="{{IOS_DOWNLOAD_URL}}">Download for iOS</a>
-  </div>
-</header>
-
-
-<div class="section">
-  <div class="card">
-    <h2>Train your brain — one puzzle at a time 🧠</h2>
-    <p>
-      Reverse Math Puzzle helps kids and adults build confidence with numbers.
-      Solve challenges by thinking backward — perfect for beginners!
-    </p>
-
-    <ul>
-      <li>⭐ Gentle difficulty curve</li>
-      <li>🎯 Daily streak rewards</li>
-      <li>🏆 Fun animations and coins</li>
-      <li>👨‍👩‍👧 Suitable for the whole family</li>
-    </ul>
-<div class="carousel">
-  <button class="carousel-btn prev">‹</button>
-
-    <div class="carousel-track">
-      <img src="\Screenshot_20260121-130149.png" />
-      <img src="Screenshot_20260121-130159.png" />
-      <img src="Screenshot_20260121-130211.png" />
-      <img src="Screenshot_20260104-095310.png" />
+  <!-- Hero Header -->
+  <header>
+    <img src="logo.png" alt="Reverse Math Puzzle Logo" class="logo">
+    <h1 class="animate">Reverse Math Puzzle</h1>
+    <p class="animate">Challenge your mind with fun math puzzles. Play Normal Mode or race against the clock in Challenge Mode. Daily streak rewards await!</p>
+    <div class="download-buttons animate">
+      <a href="#" target="_blank">Download for Android</a>
+      <a href="#" target="_blank">Download for iOS</a>
     </div>
-   <button class="carousel-btn next">›</button>
-</div>
+
+    <!-- Floating Puzzle Pieces -->
+    <img src="puzzle1.png" class="puzzle-piece" alt="Puzzle Piece">
+    <img src="puzzle2.png" class="puzzle-piece" alt="Puzzle Piece">
+    <img src="puzzle3.png" class="puzzle-piece" alt="Puzzle Piece">
+    <img src="puzzle4.png" class="puzzle-piece" alt="Puzzle Piece">
+  </header>
+
+  <!-- Screenshots Carousel -->
+  <section class="carousel">
+    <div class="carousel-track">
+      <img src="Screenshot_20260121-130149.png" alt="Screenshot 1">
+      <img src="Screenshot_20260121-130211.png" alt="Screenshot 2">
+      <img src="Screenshot_20260121-130159.png" alt="Screenshot 3">
+      <img src="Screenshot_20260104-095310.png" alt="Screenshot 4">
+    </div>
+    <div class="carousel-buttons">
+      <button id="prev">&#10094;</button>
+      <button id="next">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <h2 class="animate">Game Modes & Features</h2>
+    <div class="feature-cards">
+      <div class="feature-card">
+        <h3>Normal Mode</h3>
+        <p>Play at your pace with four difficulty levels: Novice, Seasoned, Expert, and Genius.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Challenge Mode</h3>
+        <p>Solve as many puzzles as possible within a time limit. Perfect for competitive fun!</p>
+      </div>
+      <div class="feature-card">
+        <h3>Daily Streak Rewards</h3>
+        <p>Keep your streak going and earn special rewards for daily gameplay.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Responsive Design</h3>
+        <p>Enjoy a smooth experience on both phones and desktop computers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Daily Streak Rewards -->
+<section class="streak">
+  <h2>Daily Streak Rewards</h2>
+  <p>Keep your streak going and unlock special rewards every day!</p>
+  <div class="streak-container">
+    <div class="streak-bar">
+      <div class="streak-progress" id="streak-progress"></div>
+    </div>
+    <div class="streak-counter" id="streak-counter">0</div>
+    <p>Days in a row</p>
   </div>
-</div>
+</section>
+  
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 Reverse Math Puzzle. All Rights Reserved.
+  </footer>
 
-<footer>
-  <p>
-    <a href="/privacy.html">Privacy Policy</a>
-  </p>
+  <script>
+    // Scroll animations
+    const animateElements = document.querySelectorAll('.animate, .feature-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.2 });
+    animateElements.forEach(el => observer.observe(el));
 
-  <p>© 2026 Reverse Math Puzzle</p>
-</footer>
-<script>
-  const track = document.querySelector('.carousel-track');
-  const slides = Array.from(track.children);
-  const nextButton = document.querySelector('.carousel-btn.next');
-  const prevButton = document.querySelector('.carousel-btn.prev');
+    // Carousel
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    let currentIndex = 0;
 
-  let index = 0;
+    function updateCarousel() { track.style.transform = `translateX(-${currentIndex * 100}%)`; }
 
-  function updateCarousel() {
-    track.style.transform = `translateX(-${index * 100}%)`;
-  }
+    nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % slides.length; updateCarousel(); });
+    prevBtn.addEventListener('click', () => { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateCarousel(); });
 
-  nextButton.addEventListener('click', () => {
-    index = (index + 1) % slides.length;
-    updateCarousel();
-  });
+    setInterval(() => { currentIndex = (currentIndex + 1) % slides.length; updateCarousel(); }, 4000);
+  </script>
 
-  prevButton.addEventListener('click', () => {
-    index = (index - 1 + slides.length) % slides.length;
-    updateCarousel();
-  });
-
-  // Touch support
-  let startX = 0;
-
-  track.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-  });
-
-  track.addEventListener('touchend', e => {
-    const endX = e.changedTouches[0].clientX;
-    if (startX - endX > 50) index = (index + 1) % slides.length;
-    if (endX - startX > 50) index = (index - 1 + slides.length) % slides.length;
-    updateCarousel();
-  });
-</script>
 </body>
 </html>
