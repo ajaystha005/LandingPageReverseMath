@@ -110,45 +110,6 @@
     .contact-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
     .contact-card a.btn { align-self: flex-start; margin-top: 4px; }
 
-    /* Contact form */
-    .contact-form {
-      display: grid;
-      gap: 16px;
-    }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group label { font-size: 0.85rem; font-weight: 700; color: var(--navy); }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      padding: 12px 16px;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-md);
-      font-family: inherit;
-      font-size: 0.92rem;
-      color: var(--text);
-      background: var(--surface);
-      transition: border-color var(--transition), box-shadow var(--transition);
-      outline: none;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(45,111,164,0.12);
-    }
-    .form-group textarea { resize: vertical; min-height: 130px; }
-    .form-note { font-size: 0.82rem; color: var(--text-muted); }
-    .form-success {
-      display: none;
-      background: rgba(34,197,94,0.1);
-      border: 1px solid #22c55e;
-      border-radius: var(--radius-md);
-      padding: 18px 24px;
-      color: #166534;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
 
     /* ── TIPS ─────────────────────────────────────────────── */
     .tips-section {
@@ -175,7 +136,6 @@
 
     @media (max-width: 600px) {
       .contact-cards { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
       .tips-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -283,7 +243,8 @@
   <div class="faq-item">
     <button class="faq-question">I found a bug or the app keeps crashing. <span class="arrow">▾</span></button>
     <div class="faq-answer">
-      <p>We're sorry for the trouble! Try these steps first: force-close the app and reopen it, make sure your app is updated to the latest version, and restart your device. If the issue continues, please <a href="mailto:support@reversemathpuzzle.com">email us</a> with your device model, OS version, and a description of what happened — we'll fix it as quickly as possible.</p>
+      <p>The fastest way to report a bug is directly from inside the app — <strong>shake your device</strong> at any point to open the bug report screen. You can also go to <strong>Settings → Submit Feedback</strong> from the main menu. Both methods attach helpful context automatically.</p>
+      <p style="margin-top:10px;">If you can't open the app at all, email <a href="mailto:support@reversemathpuzzle.com">support@reversemathpuzzle.com</a> with your device model and OS version and we'll get back to you quickly.</p>
     </div>
   </div>
 
@@ -333,56 +294,21 @@
     <div class="contact-cards">
       <div class="contact-card">
         <div class="contact-card-icon">📧</div>
-        <h3>Email Support</h3>
-        <p>The fastest way to reach us. Include your device model and OS version for quicker resolution.</p>
+        <h3>Email Us</h3>
+        <p>Send us an email at <strong>support@reversemathpuzzle.com</strong> and we'll get back to you within 1–2 business days. Include your device model and OS version for faster help.</p>
         <a href="mailto:support@reversemathpuzzle.com" class="btn btn-dark btn-sm">
-          Email Us
+          support@reversemathpuzzle.com
         </a>
       </div>
       <div class="contact-card">
-        <div class="contact-card-icon">⭐</div>
-        <h3>Leave a Review</h3>
-        <p>Enjoying the game? A review on the App Store or Google Play helps us reach more players.</p>
-        <a href="/download/" class="btn btn-primary btn-sm" style="color:var(--navy-dark);">
-          Rate the App
+        <div class="contact-card-icon">📳</div>
+        <h3>Report from the App</h3>
+        <p><strong>Shake your device</strong> at any time to open the bug reporter. Or go to <strong>Settings → Submit Feedback</strong> inside the app.</p>
+        <a href="/download/" class="btn btn-outline btn-sm">
+          Download the App
         </a>
       </div>
     </div>
-
-    <!-- Contact Form -->
-    <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="name">Your name</label>
-          <input type="text" id="name" name="name" placeholder="Jane Smith" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" id="email" name="email" placeholder="jane@example.com" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="topic">Topic</label>
-        <select id="topic" name="topic" required>
-          <option value="" disabled selected>Select a topic…</option>
-          <option value="bug">Bug report / crash</option>
-          <option value="purchase">Purchase or billing issue</option>
-          <option value="account">Restore purchases</option>
-          <option value="feedback">Feature feedback</option>
-          <option value="privacy">Privacy or data question</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" placeholder="Describe your issue or question…" required></textarea>
-      </div>
-      <p class="form-note">For bug reports, please include your device model (e.g. iPhone 15, Pixel 8) and OS version.</p>
-      <button type="submit" class="btn btn-primary" style="color:var(--navy-dark);align-self:flex-start;">Send Message</button>
-      <div class="form-success" id="form-success">
-        Thanks! We received your message and will reply within 1–2 business days.
-      </div>
-    </form>
   </div>
 </div>
 
@@ -431,30 +357,6 @@
     });
   });
 
-  // Contact form (Formspree — replace YOUR_FORM_ID with real endpoint)
-  const form = document.getElementById('contact-form');
-  const successMsg = document.getElementById('form-success');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const action = form.getAttribute('action');
-    if (action.includes('YOUR_FORM_ID')) {
-      // Dev mode — just show success
-      successMsg.style.display = 'block';
-      form.reset();
-      return;
-    }
-    try {
-      const res = await fetch(action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' }
-      });
-      if (res.ok) {
-        successMsg.style.display = 'block';
-        form.reset();
-      }
-    } catch (_) { /* fallback to mailto */ }
-  });
 </script>
 </body>
 </html>

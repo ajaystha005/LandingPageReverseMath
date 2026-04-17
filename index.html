@@ -206,26 +206,7 @@
       font-size: 1.8rem;
       font-weight: 800;
     }
-    .demo-blank {
-      width: 58px;
-      height: 58px;
-      border-radius: 14px;
-      background: rgba(255,203,5,0.2);
-      border: 2px dashed rgba(255,203,5,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gold);
-      font-size: 1.8rem;
-      font-weight: 900;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { border-color: rgba(255,203,5,0.6); background: rgba(255,203,5,0.15); }
-      50% { border-color: rgba(255,203,5,1); background: rgba(255,203,5,0.25); }
-    }
-    .demo-op { color: rgba(255,255,255,0.6); font-weight: 700; }
-    .demo-num { color: #fff; }
+    .demo-op { color: rgba(255,255,255,0.55); font-size: 1.5rem; font-weight: 700; }
     .demo-tiles {
       display: flex;
       justify-content: center;
@@ -234,21 +215,65 @@
       flex-wrap: wrap;
     }
     .demo-tile {
-      width: 52px;
-      height: 52px;
+      width: 56px;
+      height: 56px;
       border-radius: 12px;
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.14);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
-      font-weight: 800;
+      font-size: 1.4rem;
+      font-weight: 900;
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-      border: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.2s, transform 0.2s, opacity 0.2s;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      user-select: none;
     }
-    .demo-tile:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
-    .demo-hint { font-size: 0.82rem; opacity: 0.45; margin-top: 20px; }
+    .demo-tile:hover:not(.used) { background: rgba(255,255,255,0.26); transform: translateY(-3px); }
+    .demo-tile.used { opacity: 0.25; cursor: default; pointer-events: none; }
+    .demo-blank {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: rgba(255,203,5,0.15);
+      border: 2px dashed rgba(255,203,5,0.5);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.35);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .demo-blank.filled {
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.25);
+      color: #fff;
+      cursor: pointer;
+    }
+    .demo-blank.selected {
+      border-color: var(--gold);
+      background: rgba(255,203,5,0.2);
+      box-shadow: 0 0 0 3px rgba(255,203,5,0.25);
+    }
+    .demo-blank.correct { background: rgba(34,197,94,0.25); border-color: #22c55e; color: #22c55e; }
+    .demo-blank.wrong { background: rgba(230,57,70,0.2); border-color: #e63946; color: #e63946; }
+    .demo-hint { font-size: 0.82rem; opacity: 0.5; margin-top: 20px; min-height: 1.2em; }
+    .demo-reset {
+      margin-top: 18px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .demo-reset:hover { background: rgba(255,255,255,0.18); }
 
     /* ── GAME MODES ───────────────────────────────────────── */
     .modes-grid {
@@ -527,23 +552,25 @@
   <div class="section-inner text-center">
     <span class="section-label">Try it out</span>
     <h2 class="section-title">Can you solve this?</h2>
-    <p class="section-sub">Tap the number tiles below to fill the blank.</p>
+    <p class="section-sub">The operators are fixed. Tap a blank, then tap a number to place it.</p>
     <div class="equation-demo reveal" id="demo">
       <p class="demo-label">Target</p>
       <p class="demo-target">= <span>14</span></p>
+      <!-- Solution: 4 × 3 + 2 = 14  (operators shown, numbers blanked) -->
       <div class="demo-equation">
-        <span id="blank-display" class="demo-blank">?</span>
-        <span class="demo-op">+</span>
-        <span class="demo-num">6</span>
+        <span class="demo-blank" id="b0" data-pos="0">?</span>
         <span class="demo-op">×</span>
-        <span class="demo-num">2</span>
+        <span class="demo-blank" id="b1" data-pos="1">?</span>
+        <span class="demo-op">+</span>
+        <span class="demo-blank" id="b2" data-pos="2">?</span>
       </div>
       <div class="demo-tiles">
-        <div class="demo-tile" data-val="2">2</div>
-        <div class="demo-tile" data-val="8">8</div>
-        <div class="demo-tile" data-val="3">3</div>
+        <div class="demo-tile" data-val="3" id="t3">3</div>
+        <div class="demo-tile" data-val="2" id="t2">2</div>
+        <div class="demo-tile" data-val="4" id="t4">4</div>
       </div>
-      <p class="demo-hint" id="demo-hint">Tap a number to place it in the blank</p>
+      <p class="demo-hint" id="demo-hint">Tap a blank slot, then tap a number tile to place it</p>
+      <button class="demo-reset" id="demo-reset">↺ Reset</button>
     </div>
   </div>
 </section>
@@ -560,8 +587,8 @@
       <div class="mode-card mode-classic reveal">
         <div class="mode-icon">🧮</div>
         <h3>Classic Mode</h3>
-        <p>Solve as many puzzles as you can before 3 minutes runs out. Score points, beat your record, and master the mechanics.</p>
-        <span class="mode-tag">Score attack · 3 min</span>
+        <p>Solve as many puzzles as you can before time runs out. Score points, beat your record, and master the mechanics.</p>
+        <span class="mode-tag">Score attack · beat the clock</span>
       </div>
       <div class="mode-card mode-challenge reveal">
         <div class="mode-icon">⚡</div>
@@ -757,29 +784,92 @@
     });
   });
 
-  // Mini equation demo
-  const tiles = document.querySelectorAll('.demo-tile');
-  const blankDisplay = document.getElementById('blank-display');
+  // Equation demo — ? × ? + ? = 14 (operators fixed, numbers blanked)
+  // Any arrangement of the tiles that evaluates to 14 is accepted.
+  const blanks = [
+    document.getElementById('b0'),
+    document.getElementById('b1'),
+    document.getElementById('b2'),
+  ];
   const demoHint = document.getElementById('demo-hint');
-  tiles.forEach(tile => {
-    tile.addEventListener('click', () => {
-      const val = tile.dataset.val;
-      blankDisplay.textContent = val;
-      blankDisplay.style.animation = 'none';
-      // val + 6 * 2 = val + 12; correct answer is 2 (2+12=14)
-      if (val === '2') {
-        blankDisplay.style.background = 'rgba(34,197,94,0.25)';
-        blankDisplay.style.borderColor = '#22c55e';
-        blankDisplay.style.color = '#22c55e';
-        demoHint.textContent = '🎉 Correct! 2 + 6 × 2 = 14';
-      } else {
-        blankDisplay.style.background = 'rgba(230,57,70,0.2)';
-        blankDisplay.style.borderColor = '#e63946';
-        blankDisplay.style.color = '#e63946';
-        demoHint.textContent = `Not quite — ${val} + 6 × 2 = ${parseInt(val) + 12}, not 14`;
-      }
-      tiles.forEach(t => t.style.opacity = t === tile ? '0.4' : '1');
+  const demoReset = document.getElementById('demo-reset');
+  const demoTiles = document.querySelectorAll('.demo-tile');
+
+  let placed = [null, null, null]; // values placed in each blank
+  let selectedBlank = null;
+
+  function selectBlank(idx) {
+    // Can't select a correctly confirmed blank
+    if (blanks[idx].classList.contains('correct')) return;
+    blanks.forEach((b, i) => b.classList.toggle('selected', i === idx));
+    selectedBlank = idx;
+    demoHint.textContent = 'Now tap a number tile to place it here';
+  }
+
+  function checkAll() {
+    if (placed.some(v => v === null)) return;
+    // evaluate: placed[0] × placed[1] + placed[2]
+    const result = parseInt(placed[0]) * parseInt(placed[1]) + parseInt(placed[2]);
+    const correct = result === 14;
+    blanks.forEach(b => {
+      b.classList.remove('selected', 'filled');
+      b.classList.add(correct ? 'correct' : 'wrong');
     });
+    if (correct) {
+      demoHint.textContent = '🎉 Correct! ' + placed[0] + ' × ' + placed[1] + ' + ' + placed[2] + ' = 14';
+    } else {
+      demoHint.textContent = placed[0] + ' × ' + placed[1] + ' + ' + placed[2] + ' = ' + result + ', not 14 — try again!';
+    }
+    selectedBlank = null;
+  }
+
+  blanks.forEach((b, i) => {
+    b.addEventListener('click', () => {
+      if (!b.classList.contains('correct')) selectBlank(i);
+    });
+  });
+
+  demoTiles.forEach(tile => {
+    tile.addEventListener('click', () => {
+      if (tile.classList.contains('used')) return;
+      if (selectedBlank === null) {
+        // auto-select next empty blank
+        const next = placed.findIndex(v => v === null);
+        if (next === -1) return;
+        selectBlank(next);
+      }
+      const val = tile.dataset.val;
+      // If blank already had a value, return that tile
+      if (placed[selectedBlank] !== null) {
+        const oldVal = placed[selectedBlank];
+        document.getElementById('t' + oldVal).classList.remove('used');
+      }
+      placed[selectedBlank] = val;
+      blanks[selectedBlank].textContent = val;
+      blanks[selectedBlank].classList.add('filled');
+      blanks[selectedBlank].classList.remove('selected', 'wrong');
+      tile.classList.add('used');
+      selectedBlank = null;
+      blanks.forEach(b => b.classList.remove('selected'));
+
+      if (placed.every(v => v !== null)) {
+        setTimeout(checkAll, 150);
+      } else {
+        const next = placed.findIndex(v => v === null);
+        if (next !== -1) { selectBlank(next); demoHint.textContent = 'Keep going — place the remaining numbers'; }
+      }
+    });
+  });
+
+  demoReset.addEventListener('click', () => {
+    placed = [null, null, null];
+    selectedBlank = null;
+    blanks.forEach(b => {
+      b.textContent = '?';
+      b.className = 'demo-blank';
+    });
+    demoTiles.forEach(t => t.classList.remove('used'));
+    demoHint.textContent = 'Tap a blank slot, then tap a number tile to place it';
   });
 </script>
 </body>
