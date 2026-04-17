@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — Reverse Math Puzzle</title>
+  <meta name="description" content="Get help with Reverse Math Puzzle. FAQ, tips, and contact support.">
+  <link rel="icon" href="/app_icon_1024.png" type="image/png">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* ── FAQ ──────────────────────────────────────────────── */
+    .faq-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+    .faq-section h2 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 28px;
+    }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 20px 24px;
+      font-family: inherit;
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: background var(--transition);
+    }
+    .faq-question:hover { background: var(--bg); }
+    .faq-question .arrow {
+      font-size: 1rem;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+    .faq-item.open .arrow { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding: 0 24px 20px;
+    }
+    .faq-answer p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .faq-answer a { color: var(--blue); }
+
+    /* ── CONTACT ──────────────────────────────────────────── */
+    .contact-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px;
+    }
+    .contact-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .contact-inner h2 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .contact-inner > p {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+    }
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .contact-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contact-card-icon { font-size: 1.8rem; }
+    .contact-card h3 { font-size: 1rem; font-weight: 800; color: var(--navy); }
+    .contact-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+    .contact-card a.btn { align-self: flex-start; margin-top: 4px; }
+
+    /* Contact form */
+    .contact-form {
+      display: grid;
+      gap: 16px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.85rem; font-weight: 700; color: var(--navy); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(45,111,164,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-note { font-size: 0.82rem; color: var(--text-muted); }
+    .form-success {
+      display: none;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid #22c55e;
+      border-radius: var(--radius-md);
+      padding: 18px 24px;
+      color: #166534;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    /* ── TIPS ─────────────────────────────────────────────── */
+    .tips-section {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      padding: 60px 24px;
+      color: #fff;
+    }
+    .tips-inner { max-width: 760px; margin: 0 auto; }
+    .tips-inner h2 { font-size: 1.5rem; font-weight: 900; margin-bottom: 28px; }
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .tip-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-md);
+      padding: 22px;
+    }
+    .tip-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .tip-card h3 { font-size: 0.97rem; font-weight: 800; margin-bottom: 6px; }
+    .tip-card p { font-size: 0.86rem; opacity: 0.72; line-height: 1.65; }
+
+    @media (max-width: 600px) {
+      .contact-cards { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .tips-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/app_icon_1024.png" alt="Reverse Math icon">
+      Reverse Math
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#modes">Game Modes</a></li>
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/support/" class="active">Support</a></li>
+      <li><a href="/download/" class="nav-cta">Download Free</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/#modes">Game Modes</a>
+    <a href="/#features">Features</a>
+    <a href="/support/">Support</a>
+    <a href="/download/" class="nav-cta">Download Free</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <h1>Support</h1>
+  <p>Find answers, get tips, or reach out — we're here to help.</p>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <button class="faq-question">How do I play Reverse Math Puzzle? <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>Each puzzle shows you a <strong>target number</strong> and a partially filled equation with blank slots. Your job is to tap or drag number tiles into the blanks so that the equation equals the target. Remember: multiplication and division are calculated before addition and subtraction (standard order of operations), and each tile can only be used once.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">What are the different game modes? <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p><strong>Classic Mode</strong> — Solve as many puzzles as possible in 3 minutes. Earn points for each correct answer.<br><br>
+      <strong>Challenge Mode</strong> — Complete a set of 10 puzzles as quickly as you can. Use power-ups strategically.<br><br>
+      <strong>Daily Challenge</strong> — One fresh puzzle every day. Complete it to maintain your daily streak and earn coin rewards.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">What do the difficulty levels mean? <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>There are four difficulty levels:<br><br>
+      🌱 <strong>Novice</strong> — Simple equations to learn the basics<br>
+      📚 <strong>Seasoned</strong> — Moderate equations for daily practice<br>
+      ⚡ <strong>Expert</strong> — Complex equations for fast thinkers<br>
+      🧠 <strong>Genius</strong> — Maximum difficulty, hardcore mode<br><br>
+      The Daily Challenge uses the Seasoned difficulty by default.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">How do I earn and spend coins? <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>Coins are earned by completing Classic and Challenge Mode games, maintaining daily streaks, and watching optional rewarded ads. Coins are spent on power-ups during gameplay: <strong>Hint</strong> (reveals one correct placement), <strong>Skip</strong> (skips a puzzle), <strong>Undo</strong> (undoes your last move), and <strong>Add Time</strong> (adds 30 seconds in Classic Mode). You can also purchase coin packs from the Coin Store in the app.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">I lost my streak — can I recover it? <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>Unfortunately, streaks cannot be manually restored once lost. A streak resets if you miss a day's Daily Challenge. To avoid losing your streak, enable the <strong>daily reminder notification</strong> in Settings — it will alert you each day so you don't forget to play.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">How do I remove ads? <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>Tap the <strong>Coin Store</strong> icon in the main menu, then select <strong>Remove Ads</strong>. This is a one-time purchase that permanently removes all advertisements from the app. If you've already purchased it and ads are showing, tap <strong>Restore Purchases</strong> in Settings to restore your purchase.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">I purchased Remove Ads but ads are still showing. <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>Go to <strong>Settings → Restore Purchases</strong>. This will re-link your purchase to the app. Make sure you're signed in to the same App Store or Google Play account you used when you made the purchase. If the issue persists, <a href="mailto:support@reversemathpuzzle.com">contact us</a>.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Does the game require an internet connection? <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>No — Reverse Math Puzzle is fully playable offline. All game data is stored locally on your device. An internet connection is only used for optional features like rewarded ads, in-app purchases, and optional analytics. The Daily Challenge is pre-generated and works offline too.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">I found a bug or the app keeps crashing. <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>We're sorry for the trouble! Try these steps first: force-close the app and reopen it, make sure your app is updated to the latest version, and restart your device. If the issue continues, please <a href="mailto:support@reversemathpuzzle.com">email us</a> with your device model, OS version, and a description of what happened — we'll fix it as quickly as possible.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">How do I request a refund? <span class="arrow">▾</span></button>
+    <div class="faq-answer">
+      <p>Refunds are handled by Apple or Google, not directly by us. For iOS, visit <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a>. For Android, open Google Play → My orders → Request a refund. If you need additional assistance, email us at <a href="mailto:support@reversemathpuzzle.com">support@reversemathpuzzle.com</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div class="tips-section">
+  <div class="tips-inner">
+    <h2>💡 Pro Tips</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">🔢</div>
+        <h3>Order of operations matters</h3>
+        <p>× and ÷ are calculated before + and −. Plan your placement with the final result in mind, not left-to-right.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">💾</div>
+        <h3>Save coins for tough spots</h3>
+        <p>Don't spend hints on easy puzzles. Hold them for Expert or Genius difficulty when you're really stuck.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📅</div>
+        <h3>Daily first, then ranked</h3>
+        <p>Do the Daily Challenge before anything else — it's only available for 24 hours and keeps your streak alive.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">↩️</div>
+        <h3>Undo is free — use it</h3>
+        <p>Not sure? Place a number and see if the equation gets closer. If not, undo immediately and try another tile.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <div class="contact-inner">
+    <h2>Still need help?</h2>
+    <p>Our team typically responds within 1–2 business days.</p>
+
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="contact-card-icon">📧</div>
+        <h3>Email Support</h3>
+        <p>The fastest way to reach us. Include your device model and OS version for quicker resolution.</p>
+        <a href="mailto:support@reversemathpuzzle.com" class="btn btn-dark btn-sm">
+          Email Us
+        </a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">⭐</div>
+        <h3>Leave a Review</h3>
+        <p>Enjoying the game? A review on the App Store or Google Play helps us reach more players.</p>
+        <a href="/download/" class="btn btn-primary btn-sm" style="color:var(--navy-dark);">
+          Rate the App
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="topic">Topic</label>
+        <select id="topic" name="topic" required>
+          <option value="" disabled selected>Select a topic…</option>
+          <option value="bug">Bug report / crash</option>
+          <option value="purchase">Purchase or billing issue</option>
+          <option value="account">Restore purchases</option>
+          <option value="feedback">Feature feedback</option>
+          <option value="privacy">Privacy or data question</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Describe your issue or question…" required></textarea>
+      </div>
+      <p class="form-note">For bug reports, please include your device model (e.g. iPhone 15, Pixel 8) and OS version.</p>
+      <button type="submit" class="btn btn-primary" style="color:var(--navy-dark);align-self:flex-start;">Send Message</button>
+      <div class="form-success" id="form-success">
+        Thanks! We received your message and will reply within 1–2 business days.
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="/app_icon_1024.png" alt="Reverse Math icon">
+        Reverse Math Puzzle
+      </div>
+      <p class="footer-tagline">A brain-training math puzzle game for iOS &amp; Android.</p>
+    </div>
+    <nav class="footer-links">
+      <a href="/download/">Download</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/tos/">Terms of Service</a>
+      <a href="/support/" style="color:#fff;">Support</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    &copy; <span id="year"></span> Reverse Math Puzzle. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      // Toggle clicked
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Contact form (Formspree — replace YOUR_FORM_ID with real endpoint)
+  const form = document.getElementById('contact-form');
+  const successMsg = document.getElementById('form-success');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const action = form.getAttribute('action');
+    if (action.includes('YOUR_FORM_ID')) {
+      // Dev mode — just show success
+      successMsg.style.display = 'block';
+      form.reset();
+      return;
+    }
+    try {
+      const res = await fetch(action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        successMsg.style.display = 'block';
+        form.reset();
+      }
+    } catch (_) { /* fallback to mailto */ }
+  });
+</script>
+</body>
+</html>

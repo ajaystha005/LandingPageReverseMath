@@ -3,402 +3,784 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reverse Math Puzzle</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>Reverse Math Puzzle — Fill the Blanks, Solve the Equation</title>
+  <meta name="description" content="Reverse Math Puzzle is a brain-training math game. Fill missing numbers into equations across four difficulty levels. Play daily for streak rewards!">
+  <link rel="icon" href="/app_icon_1024.png" type="image/png">
+  <link rel="stylesheet" href="/style.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
-
-    body { background: #f9f9f9; color: #333; line-height: 1.6; scroll-behavior: smooth; }
-
-    a { text-decoration: none; color: inherit; }
-
-    /* Hero Header with Gradient and Floating Puzzle Pieces */
-    header {
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, #1a4a7a 60%, #1e3a5f 100%);
+      padding: 0 24px;
+      overflow: hidden;
       position: relative;
-      background: linear-gradient(135deg, #1e3c72, #2a5298, #ff6f00, #ffc300);
-      color: white;
-      text-align: center;
-      padding: 100px 20px 100px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(45,111,164,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 48px;
+      min-height: 620px;
+      padding: 80px 0;
+    }
+    .hero-copy { position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,203,5,0.15);
+      border: 1px solid rgba(255,203,5,0.3);
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+    .hero-badge::before { content: '★'; }
+    .hero-title {
+      font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+    .hero-title span { color: var(--gold); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 460px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; flex-direction: column; gap: 20px; }
+    .hero-note {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+    }
+    /* Phone mockup */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      position: relative;
+      z-index: 2;
+    }
+    .phone-wrap {
+      position: relative;
+    }
+    .phone-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,203,5,0.2) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .phone-frame {
+      width: 260px;
+      background: #0a1628;
+      border-radius: 40px;
+      border: 6px solid #2a3f5c;
+      box-shadow:
+        0 40px 80px rgba(0,0,0,0.55),
+        inset 0 0 0 1px rgba(255,255,255,0.07);
+      position: relative;
       overflow: hidden;
     }
-
-    header img.logo { width: 120px; margin-bottom: 20px; z-index: 2; position: relative; }
-
-    header h1 {
-      font-size: 2.8rem;
-      margin-bottom: 15px;
-      z-index: 2; position: relative;
-      opacity: 0; transform: translateY(-20px); transition: all 1s ease;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 30px;
-      z-index: 2; position: relative;
-      opacity: 0; transform: translateY(-20px); transition: all 1s ease 0.3s;
-    }
-
-    .download-buttons {
-      display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
-      opacity: 0; transform: translateY(-20px); transition: all 1s ease 0.6s;
-      position: relative; z-index: 2;
-    }
-
-    .download-buttons a {
-      background: #ffcb05; color: #111; padding: 12px 25px;
-      border-radius: 8px; font-weight: 700; transition: background 0.3s, transform 0.3s;
-    }
-
-    .download-buttons a:hover { background: #f1b600; transform: translateY(-3px); }
-
-    /* Floating Puzzle Pieces */
-    .puzzle-piece {
+    .phone-notch {
       position: absolute;
-      width: 50px;
-      opacity: 0.3;
-      animation: float 6s ease-in-out infinite;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 26px;
+      background: #0a1628;
+      border-radius: 0 0 16px 16px;
+      z-index: 10;
+    }
+    .phone-frame img {
+      width: 100%;
+      display: block;
+      border-radius: 34px;
+    }
+    /* Floating puzzle pieces */
+    .float-piece {
+      position: absolute;
+      opacity: 0.25;
+      animation: floatAnim 6s ease-in-out infinite;
+    }
+    .float-piece:nth-child(1) { width: 54px; top: 15%; right: -20px; animation-delay: 0s; }
+    .float-piece:nth-child(2) { width: 42px; bottom: 20%; left: -16px; animation-delay: 2.5s; }
+    @keyframes floatAnim {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(12deg); }
     }
 
-    .puzzle-piece:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-    .puzzle-piece:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
-    .puzzle-piece:nth-child(3) { top: 70%; left: 30%; animation-delay: 4s; }
-    .puzzle-piece:nth-child(4) { top: 60%; left: 60%; animation-delay: 1s; }
+    /* ── STATS BAR ────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px;
+    }
+    .stats-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(15deg); }
+    /* ── HOW IT WORKS ─────────────────────────────────────── */
+    .how-section { background: var(--surface); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .step {
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .step-num {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--navy-dark);
+      font-size: 1.3rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+    }
+    .step h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+    .step p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── EQUATION DEMO ────────────────────────────────────── */
+    .demo-section { background: var(--bg); }
+    .equation-demo {
+      background: var(--navy);
+      border-radius: var(--radius-xl);
+      padding: 48px 40px;
+      color: #fff;
+      max-width: 640px;
+      margin: 48px auto 0;
+      text-align: center;
+    }
+    .demo-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.5; margin-bottom: 10px; }
+    .demo-target { font-size: 1rem; font-weight: 700; opacity: 0.7; margin-bottom: 20px; }
+    .demo-target span { color: var(--gold); font-size: 2rem; font-weight: 900; }
+    .demo-equation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+    .demo-blank {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      background: rgba(255,203,5,0.2);
+      border: 2px dashed rgba(255,203,5,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.8rem;
+      font-weight: 900;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { border-color: rgba(255,203,5,0.6); background: rgba(255,203,5,0.15); }
+      50% { border-color: rgba(255,203,5,1); background: rgba(255,203,5,0.25); }
+    }
+    .demo-op { color: rgba(255,255,255,0.6); font-weight: 700; }
+    .demo-num { color: #fff; }
+    .demo-tiles {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .demo-tile {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .demo-tile:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+    .demo-hint { font-size: 0.82rem; opacity: 0.45; margin-top: 20px; }
+
+    /* ── GAME MODES ───────────────────────────────────────── */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .mode-card {
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .mode-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+    }
+    .mode-classic { background: linear-gradient(135deg, #1e6e9f, #2d5a8e); }
+    .mode-challenge { background: linear-gradient(135deg, #b35c00, #e07a00); }
+    .mode-daily { background: linear-gradient(135deg, #2d7d46, #3aaa60); }
+    .mode-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .mode-card h3 { font-size: 1.25rem; font-weight: 900; margin-bottom: 8px; }
+    .mode-card p { font-size: 0.9rem; opacity: 0.82; line-height: 1.65; }
+    .mode-tag {
+      display: inline-block;
+      margin-top: 16px;
+      background: rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 700;
     }
 
-    /* Carousel */
-    /* Carousel Styles */
-.carousel {
-  position: relative;
-  max-width: 900px; /* desktop max width */
-  margin: 60px auto;
-  overflow: hidden;
-  border-radius: 15px;
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.carousel-track img {
-  flex-shrink: 0;
-  width: 100%;
-  height: auto;
-  object-fit: contain; /* preserves aspect ratio for both portrait and landscape */
-  border-radius: 15px;
-  cursor: grab;
-}
-
-.carousel-buttons {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.carousel-buttons button {
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  pointer-events: all;
-  font-size: 1.2rem;
-  transition: background 0.3s;
-}
-
-.carousel-buttons button:hover {
-  background: rgba(0,0,0,0.7);
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .carousel {
-    max-width: 95%;
-  }
-  .carousel-track img {
-    width: 100%;
-  }
-}
-
-    /* Features */
-    .features { background: #fff; padding: 60px 20px; text-align: center; }
-    .features h2 { font-size: 2rem; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: all 1s ease; }
-    .feature-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
-    .feature-card { background: #f1f1f1; padding: 25px; border-radius: 12px; flex: 1 1 250px; max-width: 300px;
-      transition: transform 0.3s, opacity 0.5s ease; opacity: 0; transform: translateY(20px);
+    /* ── DIFFICULTY ───────────────────────────────────────── */
+    .difficulty-section { background: var(--surface); }
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 48px;
     }
-    .feature-card:hover { transform: translateY(-5px); }
-    .feature-card h3 { margin-bottom: 15px; color: #4b79a1; }
-    .feature-card p { font-size: 0.95rem; }
-
-    /* Footer */
-    footer { text-align: center; padding: 30px 20px; background: #283e51; color: #fff; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 { font-size: 2rem; }
-      .carousel-track img { width: 100%; }
-      .feature-cards { flex-direction: column; }
-      .download-buttons { flex-direction: column; }
+    .diff-card {
+      border-radius: var(--radius-lg);
+      padding: 28px 20px;
+      text-align: center;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
     }
+    .diff-card:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .diff-emoji { font-size: 2rem; margin-bottom: 12px; }
+    .diff-card h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+    .diff-card p { font-size: 0.84rem; color: var(--text-muted); }
+    .diff-bar {
+      margin: 14px auto 0;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--bg);
+      overflow: hidden;
+      max-width: 80px;
+    }
+    .diff-fill { height: 100%; border-radius: 3px; }
+    .diff-novice .diff-fill    { width: 25%; background: #22c55e; }
+    .diff-seasoned .diff-fill  { width: 50%; background: var(--gold); }
+    .diff-expert .diff-fill    { width: 75%; background: var(--orange); }
+    .diff-genius .diff-fill    { width: 100%; background: #e63946; }
 
-    .streak {
-  background: #f9f9f9;
-  text-align: center;
-  padding: 60px 20px;
-}
+    /* ── FEATURES ─────────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .feature-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .feature-item:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(45,111,164,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    .feature-item h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .feature-item p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
 
-.streak h2 { font-size: 2rem; margin-bottom: 15px; }
-.streak p { margin-bottom: 30px; }
+    /* ── SCREENSHOTS ──────────────────────────────────────── */
+    .screenshots-section { background: var(--bg); overflow: hidden; }
+    .screenshot-track {
+      display: flex;
+      gap: 16px;
+      margin-top: 48px;
+      padding-bottom: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .screenshot-track::-webkit-scrollbar { display: none; }
+    .screenshot-item {
+      flex-shrink: 0;
+      width: 220px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      scroll-snap-align: start;
+    }
+    .screenshot-item img { width: 100%; display: block; }
 
-.streak-container {
-  display: inline-block;
-  max-width: 400px;
-  width: 100%;
-}
+    /* ── DOWNLOAD CTA ─────────────────────────────────────── */
+    .download-cta {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      padding: 80px 24px;
+      text-align: center;
+      color: #fff;
+    }
+    .download-cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; margin-bottom: 14px; }
+    .download-cta p { font-size: 1rem; opacity: 0.7; margin-bottom: 36px; }
+    .download-cta .store-badges { justify-content: center; }
 
-.streak-bar {
-  width: 100%;
-  height: 25px;
-  background: #ddd;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 15px;
-}
-
-.streak-progress {
-  width: 0;
-  height: 100%;
-  background: linear-gradient(90deg, #ffcb05, #ff6f00);
-  border-radius: 12px;
-  transition: width 1s ease-in-out;
-}
-
-.streak-counter {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #4b79a1;
-}
-
-    /* Hero Section */
-.hero {
-  position: relative;
-  background: linear-gradient(135deg, #4b79a1, #283e51);
-  color: white;
-  text-align: center;
-  padding: 120px 20px 120px;
-  overflow: hidden;
-}
-
-/* Make sure gradient is visible behind pieces */
-.hero-content {
-  position: relative;
-  z-index: 2; /* content above puzzle pieces */
-}
-
-.hero img.logo {
-  width: 120px;
-  margin-bottom: 20px;
-}
-
-/* Hero text and button animations */
-.hero h1, .hero p, .download-buttons a {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease-out;
-}
-
-/* Staggered fade-in classes */
-.fade-in-1 { transition-delay: 0.3s; }
-.fade-in-2 { transition-delay: 0.6s; }
-.fade-in-3 { transition-delay: 0.9s; }
-    
-/* Floating Puzzle Pieces */
-.puzzle-piece {
-  position: absolute;
-  width: 60px;
-  opacity: 0.3;
-  animation: float 6s ease-in-out infinite;
-  z-index: 1; /* behind content */
-}
-
-.puzzle-piece:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-.puzzle-piece:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
-.puzzle-piece:nth-child(3) { top: 70%; left: 30%; animation-delay: 4s; }
-.puzzle-piece:nth-child(4) { top: 60%; left: 60%; animation-delay: 1s; }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(15deg); }
-}
-
-/* Download buttons */
-.download-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.download-buttons a {
-  background: #ffcb05;
-  color: #111;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: 700;
-  transition: background 0.3s, transform 0.3s;
-}
-
-.download-buttons a:hover {
-  background: #f1b600;
-  transform: translateY(-3px);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .hero { padding: 100px 20px 100px; }
-  .puzzle-piece { width: 50px; }
-}
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; min-height: auto; }
+      .hero-visual { display: none; }
+      .hero-sub { max-width: 100%; }
+      .hero-actions { align-items: center; }
+      .store-badges { justify-content: center; }
+      .steps { grid-template-columns: 1fr; gap: 0; }
+      .modes-grid { grid-template-columns: 1fr; }
+      .diff-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 500px) {
+      .diff-grid { grid-template-columns: 1fr 1fr; }
+      .stats-inner { gap: 24px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hero Header -->
-  <header class="hero">
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/app_icon_1024.png" alt="Reverse Math icon">
+      Reverse Math
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#modes">Game Modes</a></li>
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/support/">Support</a></li>
+      <li><a href="/download/" class="nav-cta">Download Free</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/#modes">Game Modes</a>
+    <a href="/#features">Features</a>
+    <a href="/support/">Support</a>
+    <a href="/download/" class="nav-cta">Download Free</a>
+  </div>
+</nav>
 
-     <!-- Floating Puzzle Pieces -->
-    <img src="puzzle_blue.png" class="puzzle-piece" alt="Puzzle Piece">
-    <img src="puzzle_yellow.png" class="puzzle-piece" alt="Puzzle Piece">
-    <img src="puzzle_green.png" class="puzzle-piece" alt="Puzzle Piece">
-    <img src="puzzle_red.png" class="puzzle-piece" alt="Puzzle Piece">
-
-    <div class="hero-content">
-    <img src="app_icon_1024.png" alt="Reverse Math Puzzle Logo" class="logo fade-in-1">
-    <h1 class="animate fade-in-1"Reverse Math Puzzle</h1>
-    <p class="animate fade-in-2">Challenge your mind with fun math puzzles. Play Normal Mode or race against the clock in Challenge Mode. Daily streak rewards await!</p>
-    <div class="download-buttons fade-in-3">
-      <a href="#" target="_blank">Download for Android</a>
-      <a href="#" target="_blank">Download for iOS</a>
-    </div>
-    </div>
-   
-  </header>
-
-  <!-- Screenshots Carousel -->
-  <section class="carousel">
-    <div class="carousel-track">
-      <img src="Screenshot_20260121-130149.png" alt="Screenshot 1">
-      <img src="Screenshot_20260121-130211.png" alt="Screenshot 2">
-      <img src="Screenshot_20260121-130159.png" alt="Screenshot 3">
-      <img src="Screenshot_20260104-095310.png" alt="Screenshot 4">
-    </div>
-    <div class="carousel-buttons">
-      <button id="prev">&#10094;</button>
-      <button id="next">&#10095;</button>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="features">
-    <h2 class="animate">Game Modes & Features</h2>
-    <div class="feature-cards">
-      <div class="feature-card">
-        <h3>Normal Mode</h3>
-        <p>Play at your pace with four difficulty levels: Novice, Seasoned, Expert, and Genius.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-badge">Brain Training Math Game</div>
+      <h1 class="hero-title">
+        Fill the blanks.<br>
+        <span>Solve the equation.</span>
+      </h1>
+      <p class="hero-sub">
+        Reverse Math Puzzle flips the script — you're given a target number and must place the right numbers to match it. Simple rules, deep challenge.
+      </p>
+      <div class="hero-actions">
+        <div class="store-badges">
+          <a href="/download/#ios" class="store-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <span>
+              <span class="store-badge-sub">Download on the</span>
+              <span class="store-badge-main">App Store</span>
+            </span>
+          </a>
+          <a href="/download/#android" class="store-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.523 15.341a1 1 0 0 1-1 1H7.477a1 1 0 0 1-1-1V8.66a1 1 0 0 1 1-1h9.046a1 1 0 0 1 1 1v6.681zM3 8.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zm15 0a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zM6.5 5.5l1.5-3h8l1.5 3H6.5z"/></svg>
+            <span>
+              <span class="store-badge-sub">Get it on</span>
+              <span class="store-badge-main">Google Play</span>
+            </span>
+          </a>
+        </div>
+        <p class="hero-note">Free to play · iOS &amp; Android · No account needed</p>
       </div>
-      <div class="feature-card">
-        <h3>Challenge Mode</h3>
-        <p>Solve as many puzzles as possible within a time limit. Perfect for competitive fun!</p>
-      </div>
-      <div class="feature-card">
-        <h3>Daily Streak Rewards</h3>
-        <p>Keep your streak going and earn special rewards for daily gameplay.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Responsive Design</h3>
-        <p>Enjoy a smooth experience on both phones and desktop computers.</p>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-wrap">
+        <div class="phone-glow"></div>
+        <img src="/puzzle_blue.png" class="float-piece" alt="">
+        <img src="/puzzle_yellow.png" class="float-piece" alt="">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="/Screenshot_20260121-130149.png" alt="Reverse Math Puzzle gameplay screenshot">
+        </div>
       </div>
     </div>
-  </section>
-
-  <!-- Daily Streak Rewards -->
-<section class="streak">
-  <h2>Daily Streak Rewards</h2>
-  <p>Keep your streak going and unlock special rewards every day!</p>
-  <div class="streak-container">
-    <div class="streak-bar">
-      <div class="streak-progress" id="streak-progress"></div>
-    </div>
-    <div class="streak-counter" id="streak-counter">0</div>
-    <p>Days in a row</p>
   </div>
 </section>
-  
-  <!-- Footer -->
-  <footer>
-    &copy; 2026 Reverse Math Puzzle. All Rights Reserved.
-  </footer>
 
-  <script>
-  // Animate scroll-in elements
-  const animateElements = document.querySelectorAll('.animate, .feature-card');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Difficulty Levels</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Game Modes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Daily</div>
+      <div class="stat-label">New Challenges</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Offline Play</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section how-section">
+  <div class="section-inner text-center">
+    <span class="section-label">How It Works</span>
+    <h2 class="section-title">Three simple steps</h2>
+    <p class="section-sub">No instructions needed — the puzzle teaches itself.</p>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h3>See the target</h3>
+        <p>Each puzzle shows you a target number. Your goal is to arrange numbers so the equation equals that target.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <h3>Place your numbers</h3>
+        <p>Tap or drag number tiles into the blank slots. Each number can only be used once — think before you place!</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h3>Solve &amp; score</h3>
+        <p>Match the target to complete the puzzle. Earn coins, build streaks, and climb the difficulty ladder.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUATION DEMO -->
+<section class="section demo-section">
+  <div class="section-inner text-center">
+    <span class="section-label">Try it out</span>
+    <h2 class="section-title">Can you solve this?</h2>
+    <p class="section-sub">Tap the number tiles below to fill the blank.</p>
+    <div class="equation-demo reveal" id="demo">
+      <p class="demo-label">Target</p>
+      <p class="demo-target">= <span>14</span></p>
+      <div class="demo-equation">
+        <span id="blank-display" class="demo-blank">?</span>
+        <span class="demo-op">+</span>
+        <span class="demo-num">6</span>
+        <span class="demo-op">×</span>
+        <span class="demo-num">2</span>
+      </div>
+      <div class="demo-tiles">
+        <div class="demo-tile" data-val="2">2</div>
+        <div class="demo-tile" data-val="8">8</div>
+        <div class="demo-tile" data-val="3">3</div>
+      </div>
+      <p class="demo-hint" id="demo-hint">Tap a number to place it in the blank</p>
+    </div>
+  </div>
+</section>
+
+<!-- GAME MODES -->
+<section class="section" id="modes">
+  <div class="section-inner">
+    <div class="text-center">
+      <span class="section-label">Game Modes</span>
+      <h2 class="section-title">Play your way</h2>
+      <p class="section-sub">Three modes to match your mood — casual, competitive, or habitual.</p>
+    </div>
+    <div class="modes-grid" style="margin-top:48px;">
+      <div class="mode-card mode-classic reveal">
+        <div class="mode-icon">🧮</div>
+        <h3>Classic Mode</h3>
+        <p>Solve as many puzzles as you can before 3 minutes runs out. Score points, beat your record, and master the mechanics.</p>
+        <span class="mode-tag">Score attack · 3 min</span>
+      </div>
+      <div class="mode-card mode-challenge reveal">
+        <div class="mode-icon">⚡</div>
+        <h3>Challenge Mode</h3>
+        <p>Race through 10 puzzles as fast as possible. Every second counts — use power-ups wisely and finish the run.</p>
+        <span class="mode-tag">Speed run · 10 puzzles</span>
+      </div>
+      <div class="mode-card mode-daily reveal">
+        <div class="mode-icon">📅</div>
+        <h3>Daily Challenge</h3>
+        <p>A fresh puzzle every day. Complete it to keep your streak alive and earn daily coin rewards — don't miss a day!</p>
+        <span class="mode-tag">Streak · Daily rewards</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFICULTY -->
+<section class="section difficulty-section">
+  <div class="section-inner">
+    <div class="text-center">
+      <span class="section-label">Difficulty</span>
+      <h2 class="section-title">Find your level</h2>
+      <p class="section-sub">Start at Novice and work your way to Genius. Each tier unlocks bigger equations and higher rewards.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card diff-novice reveal">
+        <div class="diff-emoji">🌱</div>
+        <h3>Novice</h3>
+        <p>Learn the basics</p>
+        <div class="diff-bar"><div class="diff-fill"></div></div>
+      </div>
+      <div class="diff-card diff-seasoned reveal">
+        <div class="diff-emoji">📚</div>
+        <h3>Seasoned</h3>
+        <p>Daily practice</p>
+        <div class="diff-bar"><div class="diff-fill"></div></div>
+      </div>
+      <div class="diff-card diff-expert reveal">
+        <div class="diff-emoji">⚡</div>
+        <h3>Expert</h3>
+        <p>Fast thinkers</p>
+        <div class="diff-bar"><div class="diff-fill"></div></div>
+      </div>
+      <div class="diff-card diff-genius reveal">
+        <div class="diff-emoji">🧠</div>
+        <h3>Genius</h3>
+        <p>Hardcore mode</p>
+        <div class="diff-bar"><div class="diff-fill"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features" style="background:var(--bg);">
+  <div class="section-inner">
+    <div class="text-center">
+      <span class="section-label">Features</span>
+      <h2 class="section-title">Everything you need</h2>
+      <p class="section-sub">Power-ups, streaks, offline play, and more — packed into a clean, ad-light experience.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item reveal">
+        <div class="feature-icon">💡</div>
+        <h3>Hint Power-Up</h3>
+        <p>Stuck? Use a hint to reveal one correct placement. Spend coins wisely to save your streak.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">⏩</div>
+        <h3>Skip &amp; Undo</h3>
+        <p>Skip a tricky puzzle or undo your last move — no penalties, just smarter play.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">⏱️</div>
+        <h3>Add Time</h3>
+        <p>Running out of time in Classic Mode? Add 30 extra seconds and keep the run alive.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">🔥</div>
+        <h3>Daily Streaks</h3>
+        <p>Play every day to build your streak and unlock bigger coin rewards. Miss a day and it resets!</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">🪙</div>
+        <h3>Coin Rewards</h3>
+        <p>Earn coins by completing games. Spend them on power-ups or save up for big boosts.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">📴</div>
+        <h3>Fully Offline</h3>
+        <p>No internet required. Play anywhere — commute, flight, or couch. Your data stays on your device.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section class="section screenshots-section">
+  <div class="section-inner text-center">
+    <span class="section-label">Screenshots</span>
+    <h2 class="section-title">See it in action</h2>
+    <p class="section-sub">Clean, focused UI designed to keep you in the zone.</p>
+  </div>
+  <div class="screenshot-track">
+    <div class="screenshot-item"><img src="/Screenshot_20260121-130149.png" alt="Game screen"></div>
+    <div class="screenshot-item"><img src="/Screenshot_20260121-130211.png" alt="Game screen"></div>
+    <div class="screenshot-item"><img src="/Screenshot_20260121-130159.png" alt="Game screen"></div>
+    <div class="screenshot-item"><img src="/Screenshot_20260104-095310.png" alt="Game screen"></div>
+    <div class="screenshot-item"><img src="/Screenshot_20260121-130149.png" alt="Game screen"></div>
+  </div>
+</section>
+
+<!-- DOWNLOAD CTA -->
+<section class="download-cta">
+  <h2>Ready to train your brain?</h2>
+  <p>Download free on iOS and Android. No sign-up, no nonsense.</p>
+  <div class="store-badges">
+    <a href="/download/#ios" class="store-badge">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <span>
+        <span class="store-badge-sub">Download on the</span>
+        <span class="store-badge-main">App Store</span>
+      </span>
+    </a>
+    <a href="/download/#android" class="store-badge">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.523 15.341a1 1 0 0 1-1 1H7.477a1 1 0 0 1-1-1V8.66a1 1 0 0 1 1-1h9.046a1 1 0 0 1 1 1v6.681zM3 8.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zm15 0a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zM6.5 5.5l1.5-3h8l1.5 3H6.5z"/></svg>
+      <span>
+        <span class="store-badge-sub">Get it on</span>
+        <span class="store-badge-main">Google Play</span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="/app_icon_1024.png" alt="Reverse Math icon">
+        Reverse Math Puzzle
+      </div>
+      <p class="footer-tagline">A brain-training math puzzle game for iOS &amp; Android.</p>
+    </div>
+    <nav class="footer-links">
+      <a href="/download/">Download</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/tos/">Terms of Service</a>
+      <a href="/support/">Support</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    &copy; <span id="year"></span> Reverse Math Puzzle. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
       }
     });
-  }, { threshold:0.2 });
-  animateElements.forEach(el => observer.observe(el));
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
 
-  // Carousel
-  const track = document.querySelector('.carousel-track');
-  const slides = Array.from(track.children);
-  const prevBtn = document.getElementById('prev');
-  const nextBtn = document.getElementById('next');
-  let currentIndex = 0;
-
-  function updateCarousel() { track.style.transform = `translateX(-${currentIndex*100}%)`; }
-
-  nextBtn.addEventListener('click', () => { currentIndex = (currentIndex+1)%slides.length; updateCarousel(); });
-  prevBtn.addEventListener('click', () => { currentIndex = (currentIndex-1+slides.length)%slides.length; updateCarousel(); });
-  setInterval(()=>{ currentIndex=(currentIndex+1)%slides.length; updateCarousel(); },4000);
-
-  // Daily Streak Animation
-  document.addEventListener("DOMContentLoaded", function(){
-    let streakDays = 7; // Example current streak
-    let maxStreak = 30; // Max streak
-    const progressBar = document.getElementById('streak-progress');
-    const counter = document.getElementById('streak-counter');
-
-    setTimeout(()=>{ progressBar.style.width = `${(streakDays/maxStreak)*100}%`; },100);
-
-    let current = 0;
-    const interval = setInterval(()=>{
-      if(current < streakDays){ current++; counter.textContent = current; } else { clearInterval(interval); }
-    },100);
+  // Hero fade-in
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.hero-badge, .hero-title, .hero-sub, .hero-actions').forEach((el, i) => {
+      el.style.transition = `opacity 0.7s ease ${i * 0.15}s, transform 0.7s ease ${i * 0.15}s`;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, 50);
+      });
+    });
   });
 
-    document.addEventListener("DOMContentLoaded", () => {
-  const fadeInElements = document.querySelectorAll('.fade-in-1, .fade-in-2, .fade-in-3');
-  fadeInElements.forEach(el => {
-    el.style.opacity = '1';
-    el.style.transform = 'translateY(0)';
+  // Mini equation demo
+  const tiles = document.querySelectorAll('.demo-tile');
+  const blankDisplay = document.getElementById('blank-display');
+  const demoHint = document.getElementById('demo-hint');
+  tiles.forEach(tile => {
+    tile.addEventListener('click', () => {
+      const val = tile.dataset.val;
+      blankDisplay.textContent = val;
+      blankDisplay.style.animation = 'none';
+      // val + 6 * 2 = val + 12; correct answer is 2 (2+12=14)
+      if (val === '2') {
+        blankDisplay.style.background = 'rgba(34,197,94,0.25)';
+        blankDisplay.style.borderColor = '#22c55e';
+        blankDisplay.style.color = '#22c55e';
+        demoHint.textContent = '🎉 Correct! 2 + 6 × 2 = 14';
+      } else {
+        blankDisplay.style.background = 'rgba(230,57,70,0.2)';
+        blankDisplay.style.borderColor = '#e63946';
+        blankDisplay.style.color = '#e63946';
+        demoHint.textContent = `Not quite — ${val} + 6 × 2 = ${parseInt(val) + 12}, not 14`;
+      }
+      tiles.forEach(t => t.style.opacity = t === tile ? '0.4' : '1');
+    });
   });
-});
 </script>
-
 </body>
 </html>
