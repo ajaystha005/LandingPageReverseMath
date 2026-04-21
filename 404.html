@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Reverse Math Puzzle</title>
+  <meta name="description" content="The page you were looking for could not be found. Return to Reverse Math Puzzle, download the app, or get support.">
+  <link rel="icon" href="/app_icon_1024.png" type="image/png">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .error-hero {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .error-inner {
+      max-width: 560px;
+      width: 100%;
+    }
+    .error-code {
+      font-size: clamp(5rem, 16vw, 8rem);
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .error-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .error-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .error-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .error-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      text-align: left;
+    }
+    .error-link-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .error-link-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      border-color: rgba(45,111,164,0.28);
+    }
+    .error-link-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+    .error-link-title {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .error-link-copy {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 600px) {
+      .error-actions { flex-direction: column; }
+      .error-actions .btn { width: 100%; }
+      .error-links { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/app_icon_1024.png" alt="Reverse Math icon">
+      Reverse Math
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#modes">Game Modes</a></li>
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/support/">Support</a></li>
+      <li><a href="/download/" class="nav-cta">Download Free</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/#modes">Game Modes</a>
+    <a href="/#features">Features</a>
+    <a href="/support/">Support</a>
+    <a href="/download/" class="nav-cta">Download Free</a>
+  </div>
+</nav>
+
+<main class="error-hero">
+  <div class="error-inner">
+    <div class="error-code">404</div>
+    <h1 class="error-title">This puzzle piece is missing.</h1>
+    <p class="error-sub">
+      The page you're looking for doesn't exist, may have moved,
+      or the link was typed incorrectly.
+    </p>
+    <div class="error-actions">
+      <a href="/" class="btn btn-primary">Go Home</a>
+      <a href="/download/" class="btn btn-dark">Download the App</a>
+      <a href="/support/" class="btn btn-outline">Get Support</a>
+    </div>
+    <div class="error-links">
+      <a href="/#modes" class="error-link-card">
+        <span class="error-link-label">Explore</span>
+        <span class="error-link-title">Game Modes</span>
+        <span class="error-link-copy">See the different ways to play.</span>
+      </a>
+      <a href="/download/" class="error-link-card">
+        <span class="error-link-label">Install</span>
+        <span class="error-link-title">iOS &amp; Android</span>
+        <span class="error-link-copy">App Store or Google Play.</span>
+      </a>
+      <a href="/support/" class="error-link-card">
+        <span class="error-link-label">Help</span>
+        <span class="error-link-title">Support Center</span>
+        <span class="error-link-copy">Purchases, crashes, restore &amp; more.</span>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="/app_icon_1024.png" alt="Reverse Math icon">
+        Reverse Math Puzzle
+      </div>
+      <p class="footer-tagline">A brain-training math puzzle game for iOS &amp; Android.</p>
+    </div>
+    <nav class="footer-links">
+      <a href="/download/">Download</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/tos/">Terms of Service</a>
+      <a href="/support/">Support</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    &copy; <span id="year"></span> Reverse Math Puzzle. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+</script>
+</body>
+</html>
