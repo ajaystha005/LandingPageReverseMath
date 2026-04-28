@@ -7,6 +7,14 @@
   <meta name="description" content="Reverse Math Puzzle is a brain-training math game. Fill missing numbers into equations across four difficulty levels. Play daily for streak rewards!">
   <link rel="icon" href="/app_icon_1024.png" type="image/png">
   <link rel="stylesheet" href="/style.css">
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
   <style>
     /* ── HERO ─────────────────────────────────────────────── */
     .hero {
@@ -467,14 +475,14 @@
       </p>
       <div class="hero-actions">
         <div class="store-badges">
-          <a href="https://apps.apple.com/app/id6746214080" class="store-badge" target="_blank" rel="noopener">
+          <a href="https://apps.apple.com/app/id6746214080" class="store-badge" target="_blank" rel="noopener" data-store="ios" data-location="hero">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             <span>
               <span class="store-badge-sub">Download on the</span>
               <span class="store-badge-main">App Store</span>
             </span>
           </a>
-          <a href="https://play.google.com/store/apps/details?id=com.reversemath.puzzle.android" class="store-badge" target="_blank" rel="noopener">
+          <a href="https://play.google.com/store/apps/details?id=com.reversemath.puzzle.android" class="store-badge" target="_blank" rel="noopener" data-store="android" data-location="hero">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.523 15.341a1 1 0 0 1-1 1H7.477a1 1 0 0 1-1-1V8.66a1 1 0 0 1 1-1h9.046a1 1 0 0 1 1 1v6.681zM3 8.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zm15 0a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zM6.5 5.5l1.5-3h8l1.5 3H6.5z"/></svg>
             <span>
               <span class="store-badge-sub">Get it on</span>
@@ -694,11 +702,13 @@
     <p class="section-sub">Clean, focused UI designed to keep you in the zone.</p>
   </div>
   <div class="screenshot-track">
-    <div class="screenshot-item"><img src="/Screenshot_20260121-130149.png" alt="Game screen"></div>
-    <div class="screenshot-item"><img src="/Screenshot_20260121-130211.png" alt="Game screen"></div>
-    <div class="screenshot-item"><img src="/Screenshot_20260121-130159.png" alt="Game screen"></div>
-    <div class="screenshot-item"><img src="/Screenshot_20260104-095310.png" alt="Game screen"></div>
-    <div class="screenshot-item"><img src="/Screenshot_20260121-130149.png" alt="Game screen"></div>
+    <div class="screenshot-item"><img src="/main_screen.png" alt="Main menu"></div>
+    <div class="screenshot-item"><img src="/classic_difficulty_screen.png" alt="Classic difficulty selection"></div>
+    <div class="screenshot-item"><img src="/classic_seasoned_mode.png" alt="Classic seasoned mode gameplay"></div>
+    <div class="screenshot-item"><img src="/daily_puzzle_mode.png" alt="Daily puzzle mode"></div>
+    <div class="screenshot-item"><img src="/challenged_mode.png" alt="Challenge mode"></div>
+    <div class="screenshot-item"><img src="/game_summary.png" alt="Game summary screen"></div>
+    <div class="screenshot-item"><img src="/daily_streak_dialog.png" alt="Daily streak reward"></div>
   </div>
 </section>
 
@@ -707,14 +717,14 @@
   <h2>Ready to train your brain?</h2>
   <p>Download free on iOS and Android. No sign-up, no nonsense.</p>
   <div class="store-badges">
-    <a href="https://apps.apple.com/app/id6746214080" class="store-badge" target="_blank" rel="noopener">
+    <a href="https://apps.apple.com/app/id6746214080" class="store-badge" target="_blank" rel="noopener" data-store="ios" data-location="cta">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
       <span>
         <span class="store-badge-sub">Download on the</span>
         <span class="store-badge-main">App Store</span>
       </span>
     </a>
-    <a href="https://play.google.com/store/apps/details?id=com.reversemath.puzzle.android" class="store-badge" target="_blank" rel="noopener">
+    <a href="https://play.google.com/store/apps/details?id=com.reversemath.puzzle.android" class="store-badge" target="_blank" rel="noopener" data-store="android" data-location="cta">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.523 15.341a1 1 0 0 1-1 1H7.477a1 1 0 0 1-1-1V8.66a1 1 0 0 1 1-1h9.046a1 1 0 0 1 1 1v6.681zM3 8.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zm15 0a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zM6.5 5.5l1.5-3h8l1.5 3H6.5z"/></svg>
       <span>
         <span class="store-badge-sub">Get it on</span>
@@ -748,6 +758,18 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Store badge download tracking
+  document.querySelectorAll('a[data-store]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      if (typeof gtag === 'function') {
+        gtag('event', 'download_click', {
+          store: el.dataset.store,
+          location: el.dataset.location
+        });
+      }
+    });
+  });
 
   // Mobile nav
   const hamburger = document.getElementById('hamburger');
