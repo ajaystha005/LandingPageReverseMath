@@ -134,10 +134,13 @@
       border-radius: 0 0 16px 16px;
       z-index: 10;
     }
-    .phone-frame img {
+    .phone-frame img,
+    .phone-frame video {
       width: 100%;
       display: block;
       border-radius: 34px;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
     }
     /* Floating puzzle pieces */
     .float-piece {
@@ -432,7 +435,11 @@
     /* ── RESPONSIVE ───────────────────────────────────────── */
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; min-height: auto; }
-      .hero-visual { display: none; }
+      /* Phones: show the gameplay video under the headline and download buttons instead of hiding it */
+      .hero-visual { display: flex; justify-content: center; margin-top: 28px; }
+      .hero-visual .float-piece { display: none; }
+      .phone-frame { width: 210px; border-radius: 34px; }
+      .phone-glow { width: 240px; height: 240px; }
       .hero-sub { max-width: 100%; }
       .hero-actions { align-items: center; }
       .store-badges { justify-content: center; }
@@ -512,7 +519,7 @@
         <img src="/puzzle_blue.png" class="float-piece" alt="">
         <img src="/puzzle_yellow.png" class="float-piece" alt="">
         <div class="phone-frame">
-          <img src="/assets/hero-gameplay.jpg" alt="Reverse Math Puzzle gameplay: fill the blanks to hit the target">
+          <video src="/assets/reverse-math-trailer.mp4" poster="/assets/trailer-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Reverse Math Puzzle gameplay: place the numbers to hit the target"></video>
         </div>
       </div>
     </div>
@@ -714,7 +721,6 @@
     <p class="section-sub">Clean, focused UI designed to keep you in the zone.</p>
   </div>
   <div class="screenshot-track">
-    <div class="screenshot-item"><video src="/assets/reverse-math-trailer.mp4" poster="/assets/trailer-poster.jpg" autoplay muted loop playsinline preload="none" aria-label="Reverse Math Puzzle trailer"></video></div>
     <div class="screenshot-item"><img src="/assets/shots/01_gameplay.jpg" alt="Fill the blanks. Hit the target." loading="lazy"></div>
     <div class="screenshot-item"><img src="/assets/shots/02_daily.jpg" alt="A fresh puzzle every day" loading="lazy"></div>
     <div class="screenshot-item"><img src="/assets/shots/03_levels.jpg" alt="From Novice to Genius: 4 difficulty levels" loading="lazy"></div>
