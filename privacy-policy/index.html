@@ -132,7 +132,9 @@
   <p>
     play.reversemathpuzzle.com keeps your player ID and recent results in your browser's local storage, which the
     game needs to work. It uses Google Analytics to count visits and which features are used; in Europe only if you
-    accept analytics cookies, which you can change under "Cookie settings" on the home screen.
+    accept analytics cookies, which you can change under "Cookie settings" on the home screen. To keep
+    scores fair, it uses Google reCAPTCHA Enterprise to check that requests come from a real browser;
+    reCAPTCHA collects device and browser information and is subject to Google's privacy policy.
   </p>
 
   <h3>h. Moving from the Web to the App</h3>
@@ -159,6 +161,8 @@
     <li><strong>Firebase (Google)</strong> &mdash; Analytics, crash reporting, Cloud Messaging (notifications),
       Remote Config (feature switches), and Firestore and Cloud Functions (leaderboard and battle servers)</li>
     <li><strong>Google Analytics</strong> &mdash; Analytics on the web player</li>
+    <li><strong>Firebase App Check, Play Integrity, Apple DeviceCheck and reCAPTCHA Enterprise</strong> &mdash;
+      Checking that requests come from the real app or website, to prevent cheating and abuse</li>
     <li><strong>AdMob (Google)</strong> &mdash; Advertising and consent</li>
     <li><strong>RevenueCat</strong> &mdash; In-app purchase management</li>
     <li><strong>Sentry</strong> &mdash; Error monitoring</li>
