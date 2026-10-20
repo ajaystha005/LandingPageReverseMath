@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete your data — Reverse Math Puzzle</title>
+  <meta name="description" content="How to delete your Reverse Math Puzzle game profile and its data.">
+  <link rel="icon" href="/app_icon_1024.png" type="image/png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/app_icon_1024.png" alt="Reverse Math icon">
+      Reverse Math
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#modes">Game Modes</a></li>
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/support/">Support</a></li>
+      <li><a href="/download/" class="nav-cta">Download Free</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/#modes">Game Modes</a>
+    <a href="/#features">Features</a>
+    <a href="/support/">Support</a>
+    <a href="/download/" class="nav-cta">Download Free</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <h1>Delete your data</h1>
+  <p>How to delete your Reverse Math Puzzle game profile and its data.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="prose">
+  <span class="updated">Last updated: <strong>October 19, 2026</strong></span>
+
+  <div class="callout">
+    <p><strong>Summary:</strong> Reverse Math Puzzle has no account, email or password. The only data we keep about you on our servers belongs to your game profile (a random player ID, your nickname and avatar, your Daily and battle results). You can delete it yourself in the app in a few taps.</p>
+  </div>
+
+  <h2>Delete it in the app (Android and iPhone)</h2>
+  <ol>
+    <li>Open <strong>Reverse Math Puzzle</strong> and tap the <strong>Me</strong> tab.</li>
+    <li>Open <strong>Settings</strong>.</li>
+    <li>Tap <strong>Delete my profile</strong> and confirm.</li>
+  </ol>
+
+  <h2>Delete it on the web player</h2>
+  <ol>
+    <li>Open <a href="https://play.reversemathpuzzle.com">play.reversemathpuzzle.com</a>.</li>
+    <li>Open your profile (your nickname at the top) and choose <strong>Delete my profile</strong>.</li>
+  </ol>
+
+  <h2>No longer have the app?</h2>
+  <p>Email <a href="mailto:support@reversemathpuzzle.com">support@reversemathpuzzle.com</a> from any address with the subject "Delete my data" and your nickname (and the game code of a battle you joined, if you remember one). We will delete the profile and confirm by reply.</p>
+
+  <h2>What is deleted</h2>
+  <ul>
+    <li>Your player ID and the secret that links your device to it</li>
+    <li>Your nickname and avatar</li>
+    <li>Your push notification tokens</li>
+    <li>Your Daily results and your entries on every leaderboard and battle board</li>
+    <li>Your list of battles</li>
+  </ul>
+
+  <h2>What stays, and for how long</h2>
+  <ul>
+    <li>Battles you created stay available to the friends in them (for at most 97 days after they were created), with you shown as "Deleted player".</li>
+    <li>Coins, streak and progress are stored on your own device only. They are not on our servers, so deleting the app removes them from the device.</li>
+    <li>Anonymous analytics and crash reports (not linked to your nickname) and advertising data held by Google AdMob follow the retention of those services. See the <a href="/privacy-policy/">privacy policy</a>. Purchases are kept by Apple or Google, and by RevenueCat for purchase restoration, as the law requires.</li>
+    <li>Results of anyone who does not delete their profile are removed automatically 90 days after the puzzle date.</li>
+  </ul>
+
+  <p>Questions? <a href="mailto:support@reversemathpuzzle.com">support@reversemathpuzzle.com</a></p>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="/app_icon_1024.png" alt="Reverse Math icon">
+        Reverse Math Puzzle
+      </div>
+      <p class="footer-tagline">A brain-training math puzzle game for iOS &amp; Android.</p>
+    </div>
+    <nav class="footer-links">
+      <a href="/download/">Download</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/tos/">Terms of Service</a>
+      <a href="/support/">Support</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    &copy; <span id="year"></span> Reverse Math Puzzle. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+</script>
+</body>
+</html>
