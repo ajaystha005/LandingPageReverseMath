@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reverse Math Puzzle — Fill the Blanks, Solve the Equation</title>
-  <meta name="description" content="Reverse Math Puzzle is a brain-training math game. Fill missing numbers into equations across four difficulty levels. Play daily for streak rewards!">
+  <title>Reverse Math Puzzle: Daily Number Game &amp; Friend Battles</title>
+  <meta name="description" content="Fill the blanks, hit the target. A new number puzzle every day, the same for everyone, plus 2-minute battles with friends. Free on iPhone and Android.">
   <link rel="icon" href="/app_icon_1024.png" type="image/png">
   <link rel="canonical" href="https://www.reversemathpuzzle.com/">
   <!-- Social share previews -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.reversemathpuzzle.com/">
-  <meta property="og:title" content="Reverse Math Puzzle: Can you solve it?">
-  <meta property="og:description" content="Fill the blanks. Hit the target. A daily math puzzle from Novice to Genius. Free on iPhone &amp; Android.">
+  <meta property="og:title" content="Reverse Math Puzzle: Daily Number Game &amp; Battles">
+  <meta property="og:description" content="Fill the blanks. Hit the target. A new puzzle every day and 2-minute battles with friends. Free on iPhone &amp; Android.">
   <meta property="og:image" content="https://www.reversemathpuzzle.com/assets/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="628">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Reverse Math Puzzle: Can you solve it?">
-  <meta name="twitter:description" content="Fill the blanks. Hit the target. A daily math puzzle from Novice to Genius.">
+  <meta name="twitter:title" content="Reverse Math Puzzle: Daily Number Game &amp; Battles">
+  <meta name="twitter:description" content="Fill the blanks. Hit the target. A new puzzle every day and 2-minute battles with friends.">
   <meta name="twitter:image" content="https://www.reversemathpuzzle.com/assets/og-image.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Reverse Math Puzzle","applicationCategory":"GameApplication","operatingSystem":"iOS, Android","description":"Fill the blanks, hit the target. A new number puzzle every day and 2-minute battles with friends.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://www.reversemathpuzzle.com/","image":"https://www.reversemathpuzzle.com/assets/og-image.jpg"}</script>
   <link rel="stylesheet" href="/style.css">
   <style>
     /* ── HERO ─────────────────────────────────────────────── */
@@ -131,8 +132,6 @@
       width: 100%;
       display: block;
       border-radius: 34px;
-      aspect-ratio: 9 / 16;
-      object-fit: cover;
     }
     /* Floating puzzle pieces */
     .float-piece {
@@ -444,6 +443,51 @@
       .diff-grid { grid-template-columns: 1fr 1fr; }
       .stats-inner { gap: 24px; }
     }
+
+    /* ── 2.0 SECTIONS ─────────────────────────────────────── */
+    .hero-browser { display:inline-block; margin-top:2px; color:rgba(255,255,255,0.85); font-weight:700; font-size:0.95rem; text-decoration:none; border-bottom:2px solid rgba(255,203,5,0.6); padding-bottom:2px; }
+    .hero-browser:hover { color:var(--gold); }
+    .split { display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center; }
+    .split-copy h2 { font-size:clamp(1.8rem,3.4vw,2.6rem); font-weight:900; color:var(--navy); line-height:1.15; margin-bottom:14px; }
+    .split-copy p { color:var(--text-muted); line-height:1.7; margin-bottom:18px; }
+    .tick-list { list-style:none; padding:0; display:grid; gap:12px; margin:22px 0 28px; }
+    .tick-list li { position:relative; padding-left:34px; font-weight:600; color:var(--text); line-height:1.5; }
+    .tick-list li::before { content:'✓'; position:absolute; left:0; top:1px; width:24px; height:24px; border-radius:50%; background:var(--gold); color:var(--navy-dark); font-weight:900; font-size:0.85rem; display:flex; align-items:center; justify-content:center; }
+    .phone-pair { display:flex; justify-content:center; gap:18px; }
+    .phone-mini { width:210px; border-radius:30px; border:6px solid #2a3f5c; background:#0a1628; box-shadow:var(--shadow-lg); overflow:hidden; }
+    .phone-mini img { display:block; width:100%; }
+    .phone-pair .phone-mini:nth-child(1) { transform:translateY(-14px) rotate(-3deg); }
+    .phone-pair .phone-mini:nth-child(2) { transform:translateY(22px) rotate(3deg); }
+    .battle-section { background:linear-gradient(135deg,var(--navy-dark) 0%, #1a4a7a 100%); color:#fff; }
+    .battle-section .section-label { color:var(--gold); }
+    .battle-section .section-title { color:#fff; }
+    .battle-section .section-sub { color:rgba(255,255,255,0.72); }
+    .battle-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:52px; }
+    .bstep { text-align:center; }
+    .bstep .phone-mini { width:100%; max-width:220px; margin:0 auto 20px; border-color:#3a5578; }
+    .bstep-num { display:inline-flex; width:34px; height:34px; border-radius:50%; background:var(--gold); color:var(--navy-dark); font-weight:900; align-items:center; justify-content:center; margin-bottom:10px; }
+    .bstep h3 { font-size:1.05rem; font-weight:800; margin-bottom:6px; }
+    .bstep p { font-size:0.9rem; color:rgba(255,255,255,0.7); line-height:1.55; }
+    .battle-cta { margin-top:44px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+    .battle-cta .hero-browser { color:#fff; }
+    .web-band { background:var(--surface); }
+    .web-card { max-width:880px; margin:0 auto; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-xl); padding:44px 36px; text-align:center; box-shadow:var(--shadow-sm); }
+    .web-card h2 { font-size:clamp(1.6rem,3vw,2.2rem); font-weight:900; color:var(--navy); margin-bottom:10px; }
+    .web-card p { color:var(--text-muted); max-width:560px; margin:0 auto 26px; line-height:1.65; }
+    .web-links { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .modes-grid.four { grid-template-columns:repeat(4,1fr); }
+    .mode-battle { background:linear-gradient(135deg,#7a3fb0,#a35be0); }
+    .mode-timeattack { background:linear-gradient(135deg,#b35c00,#e07a00); }
+    .legal-note { font-size:0.82rem; color:var(--text-muted); margin-top:26px; }
+    .download-cta .legal-note { color:rgba(255,255,255,0.5); }
+    @media (max-width: 1100px) { .modes-grid.four { grid-template-columns:repeat(2,1fr); } .battle-steps { grid-template-columns:repeat(2,1fr); gap:36px 20px; } }
+    @media (max-width: 900px) {
+      .split { grid-template-columns:1fr; gap:36px; text-align:center; }
+      .tick-list { text-align:left; max-width:460px; margin-left:auto; margin-right:auto; }
+      .phone-mini { width:170px; }
+      .modes-grid.four { grid-template-columns:1fr; }
+    }
+    @media (max-width: 520px) { .phone-pair { gap:10px; } .phone-pair .phone-mini { width:44%; max-width:170px; } .battle-steps { grid-template-columns:1fr; } .bstep .phone-mini { max-width:200px; } .web-card { padding:34px 20px; } }
   </style>
 </head>
 <body>
@@ -456,8 +500,10 @@
       Reverse Math
     </a>
     <ul class="nav-links">
-      <li><a href="/#modes">Game Modes</a></li>
+      <li><a href="/#daily">Daily</a></li>
+      <li><a href="/#battle">Battles</a></li>
       <li><a href="/#features">Features</a></li>
+      <li><a href="https://play.reversemathpuzzle.com/" target="_blank" rel="noopener">Play in browser</a></li>
       <li><a href="/support/">Support</a></li>
       <li><a href="/download/" class="nav-cta">Download Free</a></li>
     </ul>
@@ -466,8 +512,10 @@
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
-    <a href="/#modes">Game Modes</a>
+    <a href="/#daily">Daily</a>
+    <a href="/#battle">Battles</a>
     <a href="/#features">Features</a>
+    <a href="https://play.reversemathpuzzle.com/" target="_blank" rel="noopener">Play in browser</a>
     <a href="/support/">Support</a>
     <a href="/download/" class="nav-cta">Download Free</a>
   </div>
@@ -477,20 +525,21 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-copy">
-      <div class="hero-badge">Daily Brain Game with Numbers</div>
+      <div class="hero-badge">New: battle your friends</div>
       <h1 class="hero-title">
         Fill the blanks.<br>
-        <span>Solve the equation.</span>
+        <span>Hit the target.</span>
       </h1>
       <p class="hero-sub">
-        Reverse Math Puzzle flips the script — you're given a target number and must place the right numbers to match it. Simple rules, deep challenge.
+        Place each number once so the equation comes out right, with real math rules. A new puzzle every day, the same for everyone, plus 2-minute battles with friends.
       </p>
       <div class="hero-actions">
         <div class="store-badges">
           <a href="https://apps.apple.com/app/id6746214080" class="store-badge" target="_blank" rel="noopener" data-store="ios" data-location="hero"><img src="/assets/badges/app-store-badge-en.svg" alt="Download on the App Store" height="40" width="120"></a>
           <a href="https://play.google.com/store/apps/details?id=com.reversemath.puzzle.android" class="store-badge" target="_blank" rel="noopener" data-store="android" data-location="hero"><img src="/assets/badges/google-play-badge-en.png" alt="Get it on Google Play" height="58" width="150"></a>
         </div>
-        <p class="hero-note">Free to play · iOS &amp; Android · No account needed</p>
+        <a class="hero-browser" href="https://play.reversemathpuzzle.com/" target="_blank" rel="noopener" data-location="hero-web">Or play today's puzzle in your browser →</a>
+        <p class="hero-note">Free to play · iPhone &amp; Android · No sign-up</p>
       </div>
     </div>
     <div class="hero-visual">
@@ -499,7 +548,8 @@
         <img src="/puzzle_blue.png" class="float-piece" alt="">
         <img src="/puzzle_yellow.png" class="float-piece" alt="">
         <div class="phone-frame">
-          <video src="/assets/reverse-math-trailer.mp4" poster="/assets/trailer-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Reverse Math Puzzle gameplay: place the numbers to hit the target"></video>
+          <div class="phone-notch"></div>
+          <img src="/assets/app/puzzle.jpg" width="520" height="1157" alt="Reverse Math Puzzle on a phone: Daily puzzle, target 24, equation with blanks and number tiles">
         </div>
       </div>
     </div>
@@ -509,46 +559,34 @@
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-num">4</div>
-      <div class="stat-label">Difficulty Levels</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Game Modes</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">Daily</div>
-      <div class="stat-label">New Challenges</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">Offline</div>
-      <div class="stat-label">Play Anywhere</div>
-    </div>
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Puzzles every day</div></div>
+    <div class="stat-item"><div class="stat-num">2 min</div><div class="stat-label">Friend battles</div></div>
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Levels, Novice to Genius</div></div>
+    <div class="stat-item"><div class="stat-num">Free</div><div class="stat-label">No sign-up needed</div></div>
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
 <section class="section how-section">
   <div class="section-inner text-center">
-    <span class="section-label">How It Works</span>
+    <span class="section-label">How it works</span>
     <h2 class="section-title">Three simple steps</h2>
-    <p class="section-sub">No instructions needed — the puzzle teaches itself.</p>
+    <p class="section-sub">Learn it in ten seconds. A quick intro in the app shows you the first time.</p>
     <div class="steps">
       <div class="step reveal">
         <div class="step-num">1</div>
         <h3>See the target</h3>
-        <p>Each puzzle shows you a target number. Your goal is to arrange numbers so the equation equals that target.</p>
+        <p>Every puzzle shows a target number and an equation with blanks.</p>
       </div>
       <div class="step reveal">
         <div class="step-num">2</div>
-        <h3>Place your numbers</h3>
-        <p>Tap or drag number tiles into the blank slots. Each number can only be used once — think before you place!</p>
+        <h3>Fill the blanks</h3>
+        <p>Tap or drag a number into each blank, using each one once. Real math rules apply: × and ÷ come before + and −.</p>
       </div>
       <div class="step reveal">
         <div class="step-num">3</div>
-        <h3>Solve &amp; score</h3>
-        <p>Match the target to complete the puzzle. Earn coins, build streaks, and climb the difficulty ladder.</p>
+        <h3>Hit the target</h3>
+        <p>Get it right and the next puzzle appears. Think before you tap: in timed games a wrong answer costs you a few seconds.</p>
       </div>
     </div>
   </div>
@@ -579,6 +617,73 @@
       <p class="demo-hint" id="demo-hint">Tap a blank slot, then tap a number tile to place it</p>
       <button class="demo-reset" id="demo-reset">↺ Reset</button>
     </div>
+    <p style="margin-top:28px;"><a class="btn btn-primary" href="https://play.reversemathpuzzle.com/" target="_blank" rel="noopener" data-location="demo-web">Play today's real puzzle</a></p>
+  </div>
+</section>
+
+<!-- DAILY -->
+<section class="section" id="daily">
+  <div class="section-inner split">
+    <div class="split-copy">
+      <span class="section-label">The Daily</span>
+      <h2>A new puzzle every day. The same for everyone.</h2>
+      <p>Five puzzles, four minutes. Everyone in the world gets the same ones, so you can compare with friends and see where you rank.</p>
+      <ul class="tick-list">
+        <li>Finish the Daily each day to build your streak and earn coins</li>
+        <li>See your place on today's leaderboard</li>
+        <li>Share your result as a row of squares, with your time and streak. Nobody sees the answers</li>
+        <li>Get a daily reminder so you never miss a day</li>
+      </ul>
+      <a class="hero-browser" style="color:var(--blue);border-color:var(--gold-dark);" href="https://play.reversemathpuzzle.com/leaderboard" target="_blank" rel="noopener" data-location="daily-leaderboard">See today's leaderboard →</a>
+    </div>
+    <div class="phone-pair reveal">
+      <div class="phone-mini"><img src="/assets/app/daily.jpg" width="520" height="1157" loading="lazy" alt="Home screen with today's Daily puzzle, streak and a Play button"></div>
+      <div class="phone-mini"><img src="/assets/app/result.jpg" width="520" height="1157" loading="lazy" alt="Daily result: Perfect, 5 out of 5, with squares and the leaderboard rank"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BATTLES -->
+<section class="section battle-section" id="battle">
+  <div class="section-inner">
+    <div class="text-center">
+      <span class="section-label">Battles</span>
+      <h2 class="section-title">Battle your friends</h2>
+      <p class="section-sub">Everyone gets the same puzzles and 2 minutes to solve as many as they can. Most solved wins.</p>
+    </div>
+    <div class="battle-steps">
+      <div class="bstep reveal">
+        <div class="phone-mini"><img src="/assets/app/battle-1-code.jpg" width="520" height="1157" loading="lazy" alt="A new battle with its code and an Invite friends button"></div>
+        <span class="bstep-num">1</span>
+        <h3>Start a battle</h3>
+        <p>Pick a level, play first, and send your friend the code.</p>
+      </div>
+      <div class="bstep reveal">
+        <div class="phone-mini"><img src="/assets/app/battle-2-join.jpg" width="520" height="1125" loading="lazy" alt="The friend sees the score to beat and a Play button"></div>
+        <span class="bstep-num">2</span>
+        <h3>They join</h3>
+        <p>In the app, or right in the browser. No sign-up.</p>
+      </div>
+      <div class="bstep reveal">
+        <div class="phone-mini"><img src="/assets/app/battle-3-race.jpg" width="520" height="1157" loading="lazy" alt="Mid-battle with the clock running and the score to beat shown"></div>
+        <span class="bstep-num">3</span>
+        <h3>Race the clock</h3>
+        <p>Same puzzles, 2 minutes. You see the score to beat as you play.</p>
+      </div>
+      <div class="bstep reveal">
+        <div class="phone-mini"><img src="/assets/app/battle-4-results.jpg" width="520" height="1157" loading="lazy" alt="Battle results board: first of five, with a Rematch button"></div>
+        <span class="bstep-num">4</span>
+        <h3>See who wins</h3>
+        <p>Climb the board, hear when someone beats you, and ask for a rematch.</p>
+      </div>
+    </div>
+    <div class="battle-cta">
+      <div class="store-badges">
+          <a href="https://apps.apple.com/app/id6746214080" class="store-badge" target="_blank" rel="noopener" data-store="ios" data-location="battle"><img src="/assets/badges/app-store-badge-en.svg" alt="Download on the App Store" height="40" width="120"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.reversemath.puzzle.android" class="store-badge" target="_blank" rel="noopener" data-store="android" data-location="battle"><img src="/assets/badges/google-play-badge-en.png" alt="Get it on Google Play" height="58" width="150"></a>
+        </div>
+      <a class="hero-browser" href="https://play.reversemathpuzzle.com/" target="_blank" rel="noopener" data-location="battle-join-web">Got a battle code? Join in your browser →</a>
+    </div>
   </div>
 </section>
 
@@ -586,28 +691,34 @@
 <section class="section" id="modes">
   <div class="section-inner">
     <div class="text-center">
-      <span class="section-label">Game Modes</span>
+      <span class="section-label">Ways to play</span>
       <h2 class="section-title">Play your way</h2>
-      <p class="section-sub">Three modes to match your mood — casual, competitive, or habitual.</p>
+      <p class="section-sub">Compete with the world, race a friend, or practise at your own pace.</p>
     </div>
-    <div class="modes-grid" style="margin-top:48px;">
-      <div class="mode-card mode-classic reveal">
-        <div class="mode-icon">🧮</div>
-        <h3>Classic Mode</h3>
-        <p>Solve as many puzzles as you can before time runs out. Score points, beat your record, and master the mechanics.</p>
-        <span class="mode-tag">Score attack · beat the clock</span>
-      </div>
-      <div class="mode-card mode-challenge reveal">
-        <div class="mode-icon">⚡</div>
-        <h3>Challenge Mode</h3>
-        <p>Race through 10 puzzles as fast as possible. Every second counts — use power-ups wisely and finish the run.</p>
-        <span class="mode-tag">Speed run · 10 puzzles</span>
-      </div>
+    <div class="modes-grid four" style="margin-top:48px;">
       <div class="mode-card mode-daily reveal">
         <div class="mode-icon">📅</div>
-        <h3>Daily Challenge</h3>
-        <p>A fresh puzzle every day. Complete it to keep your streak alive and earn daily coin rewards — don't miss a day!</p>
-        <span class="mode-tag">Streak · Daily rewards</span>
+        <h3>Daily</h3>
+        <p>Five puzzles, four minutes, the same for everyone. Keep your streak and climb today's leaderboard.</p>
+        <span class="mode-tag">Streak · Leaderboard</span>
+      </div>
+      <div class="mode-card mode-battle reveal">
+        <div class="mode-icon">⚔️</div>
+        <h3>Battle</h3>
+        <p>Send a friend a code and race the same puzzles for 2 minutes. Most solved wins.</p>
+        <span class="mode-tag">2 minutes · With friends</span>
+      </div>
+      <div class="mode-card mode-classic reveal">
+        <div class="mode-icon">🧮</div>
+        <h3>Classic</h3>
+        <p>Solve as many puzzles as you can before the clock runs out. Pick any level, from Novice to Genius.</p>
+        <span class="mode-tag">Beat the clock</span>
+      </div>
+      <div class="mode-card mode-timeattack reveal">
+        <div class="mode-icon">⚡</div>
+        <h3>Time Attack</h3>
+        <p>Ten puzzles against the clock. Every second counts.</p>
+        <span class="mode-tag">10 puzzles</span>
       </div>
     </div>
   </div>
@@ -619,33 +730,13 @@
     <div class="text-center">
       <span class="section-label">Difficulty</span>
       <h2 class="section-title">Find your level</h2>
-      <p class="section-sub">Start at Novice and work your way to Genius. Each tier unlocks bigger equations and higher rewards.</p>
+      <p class="section-sub">Four levels, from Novice to Genius. In battles the puzzles get harder as you go.</p>
     </div>
     <div class="diff-grid">
-      <div class="diff-card diff-novice reveal">
-        <div class="diff-emoji">🌱</div>
-        <h3>Novice</h3>
-        <p>Learn the basics</p>
-        <div class="diff-bar"><div class="diff-fill"></div></div>
-      </div>
-      <div class="diff-card diff-seasoned reveal">
-        <div class="diff-emoji">📚</div>
-        <h3>Seasoned</h3>
-        <p>Daily practice</p>
-        <div class="diff-bar"><div class="diff-fill"></div></div>
-      </div>
-      <div class="diff-card diff-expert reveal">
-        <div class="diff-emoji">⚡</div>
-        <h3>Expert</h3>
-        <p>Fast thinkers</p>
-        <div class="diff-bar"><div class="diff-fill"></div></div>
-      </div>
-      <div class="diff-card diff-genius reveal">
-        <div class="diff-emoji">🧠</div>
-        <h3>Genius</h3>
-        <p>Hardcore mode</p>
-        <div class="diff-bar"><div class="diff-fill"></div></div>
-      </div>
+      <div class="diff-card diff-novice reveal"><div class="diff-emoji">🌱</div><h3>Novice</h3><p>Learn the basics</p><div class="diff-bar"><div class="diff-fill"></div></div></div>
+      <div class="diff-card diff-seasoned reveal"><div class="diff-emoji">📚</div><h3>Seasoned</h3><p>A step up</p><div class="diff-bar"><div class="diff-fill"></div></div></div>
+      <div class="diff-card diff-expert reveal"><div class="diff-emoji">⚡</div><h3>Expert</h3><p>Fast thinkers</p><div class="diff-bar"><div class="diff-fill"></div></div></div>
+      <div class="diff-card diff-genius reveal"><div class="diff-emoji">🧠</div><h3>Genius</h3><p>Hardcore mode</p><div class="diff-bar"><div class="diff-fill"></div></div></div>
     </div>
   </div>
 </section>
@@ -655,39 +746,29 @@
   <div class="section-inner">
     <div class="text-center">
       <span class="section-label">Features</span>
-      <h2 class="section-title">Everything you need</h2>
-      <p class="section-sub">Power-ups, streaks, offline play, and more — packed into a clean, ad-light experience.</p>
+      <h2 class="section-title">Made for quick breaks</h2>
+      <p class="section-sub">Open it, play a few puzzles, get on with your day.</p>
     </div>
     <div class="features-grid">
-      <div class="feature-item reveal">
-        <div class="feature-icon">💡</div>
-        <h3>Hint Power-Up</h3>
-        <p>Stuck? Use a hint to reveal one correct placement. Spend coins wisely to save your streak.</p>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-icon">⏩</div>
-        <h3>Skip &amp; Undo</h3>
-        <p>Skip a tricky puzzle or undo your last move — no penalties, just smarter play.</p>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-icon">⏱️</div>
-        <h3>Add Time</h3>
-        <p>Running out of time in Classic Mode? Add 30 extra seconds and keep the run alive.</p>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-icon">🔥</div>
-        <h3>Daily Streaks</h3>
-        <p>Play every day to build your streak and unlock bigger coin rewards. Miss a day and it resets!</p>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-icon">🪙</div>
-        <h3>Coin Rewards</h3>
-        <p>Earn coins by completing games. Spend them on power-ups or save up for big boosts.</p>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-icon">📴</div>
-        <h3>Fully Offline</h3>
-        <p>No internet required. Play anywhere — commute, flight, or couch. Your data stays on your device.</p>
+      <div class="feature-item reveal"><div class="feature-icon">🔥</div><h3>Daily streaks</h3><p>Finish the Daily each day to build your streak and earn coins.</p></div>
+      <div class="feature-item reveal"><div class="feature-icon">🟩</div><h3>Share without spoilers</h3><p>Show your result as a row of squares with your time and streak. Nobody sees the answers.</p></div>
+      <div class="feature-item reveal"><div class="feature-icon">🔔</div><h3>Alerts you control</h3><p>A daily reminder, and a nudge when a friend beats you. Switch them off in your phone's notification settings.</p></div>
+      <div class="feature-item reveal"><div class="feature-icon">💡</div><h3>Help when you need it</h3><p>Stuck in practice? Spend coins on a hint, skip a tough puzzle or add 30 seconds. Undo a move any time.</p></div>
+      <div class="feature-item reveal"><div class="feature-icon">🌓</div><h3>Light and dark mode</h3><p>Easy on the eyes, morning or night.</p></div>
+      <div class="feature-item reveal"><div class="feature-icon">🙋</div><h3>No account needed</h3><p>Start playing right away. You get a fun player name, and can delete your profile any time in Settings.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAY IN BROWSER -->
+<section class="section web-band">
+  <div class="section-inner">
+    <div class="web-card reveal">
+      <h2>No app yet? Play in your browser.</h2>
+      <p>Today's Daily is the same puzzle as in the app. You can also join a friend's battle with their code.</p>
+      <div class="web-links">
+        <a class="btn btn-primary" href="https://play.reversemathpuzzle.com/" target="_blank" rel="noopener" data-location="web-card-play">Play today's puzzle</a>
+        <a class="btn btn-outline" href="https://play.reversemathpuzzle.com/leaderboard" target="_blank" rel="noopener" data-location="web-card-leaderboard">Today's leaderboard</a>
       </div>
     </div>
   </div>
@@ -698,26 +779,27 @@
   <div class="section-inner text-center">
     <span class="section-label">Screenshots</span>
     <h2 class="section-title">See it in action</h2>
-    <p class="section-sub">Clean, focused UI designed to keep you in the zone.</p>
+    <p class="section-sub">Clean and focused, so you can stay in the zone.</p>
   </div>
   <div class="screenshot-track">
-    <div class="screenshot-item"><img src="/assets/shots/01_gameplay.jpg" alt="Fill the blanks. Hit the target." loading="lazy"></div>
-    <div class="screenshot-item"><img src="/assets/shots/02_daily.jpg" alt="A fresh puzzle every day" loading="lazy"></div>
-    <div class="screenshot-item"><img src="/assets/shots/03_levels.jpg" alt="From Novice to Genius: 4 difficulty levels" loading="lazy"></div>
-    <div class="screenshot-item"><img src="/assets/shots/04_genius.jpg" alt="Genius puzzles use all four operations" loading="lazy"></div>
-    <div class="screenshot-item"><img src="/assets/shots/05_streak.jpg" alt="Keep your streak alive" loading="lazy"></div>
-    <div class="screenshot-item"><img src="/assets/shots/06_rewards.jpg" alt="Earn coins as you play" loading="lazy"></div>
+    <div class="screenshot-item"><img src="/assets/shots/s1-fill.jpg" width="640" height="1280" alt="Fill the blanks, hit 24" loading="lazy"></div>
+    <div class="screenshot-item"><img src="/assets/shots/s2-daily.jpg" width="640" height="1280" alt="A new puzzle every day, the same for everyone" loading="lazy"></div>
+    <div class="screenshot-item"><img src="/assets/shots/s3-battle.jpg" width="640" height="1280" alt="Battle your friends: same puzzles, most solved wins" loading="lazy"></div>
+    <div class="screenshot-item"><img src="/assets/shots/s4-share.jpg" width="640" height="1280" alt="Share your result as squares, no spoilers" loading="lazy"></div>
+    <div class="screenshot-item"><img src="/assets/shots/s5-levels.jpg" width="640" height="1280" alt="Four levels from Novice to Genius" loading="lazy"></div>
+    <div class="screenshot-item"><img src="/assets/shots/s6-dark.jpg" width="640" height="1280" alt="Light or dark mode" loading="lazy"></div>
   </div>
 </section>
 
 <!-- DOWNLOAD CTA -->
 <section class="download-cta">
-  <h2>Ready to train your brain?</h2>
-  <p>Download free on iOS and Android. No sign-up, no nonsense.</p>
+  <h2>Ready for today's puzzle?</h2>
+  <p>Free on iPhone and Android. No sign-up.</p>
   <div class="store-badges">
-    <a href="https://apps.apple.com/app/id6746214080" class="store-badge" target="_blank" rel="noopener" data-store="ios" data-location="cta"><img src="/assets/badges/app-store-badge-en.svg" alt="Download on the App Store" height="40" width="120"></a>
-    <a href="https://play.google.com/store/apps/details?id=com.reversemath.puzzle.android" class="store-badge" target="_blank" rel="noopener" data-store="android" data-location="cta"><img src="/assets/badges/google-play-badge-en.png" alt="Get it on Google Play" height="58" width="150"></a>
-  </div>
+          <a href="https://apps.apple.com/app/id6746214080" class="store-badge" target="_blank" rel="noopener" data-store="ios" data-location="cta"><img src="/assets/badges/app-store-badge-en.svg" alt="Download on the App Store" height="40" width="120"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.reversemath.puzzle.android" class="store-badge" target="_blank" rel="noopener" data-store="android" data-location="cta"><img src="/assets/badges/google-play-badge-en.png" alt="Get it on Google Play" height="58" width="150"></a>
+        </div>
+  <p class="legal-note">Free to play, with ads and optional in-app purchases (coins, Remove Ads).</p>
 </section>
 
 <!-- FOOTER -->
@@ -728,13 +810,15 @@
         <img src="/app_icon_1024.png" alt="Reverse Math icon">
         Reverse Math Puzzle
       </div>
-      <p class="footer-tagline">A brain-training math puzzle game for iOS &amp; Android.</p>
+      <p class="footer-tagline">A daily number puzzle with friend battles, for iPhone &amp; Android.</p>
     </div>
     <nav class="footer-links">
       <a href="/download/">Download</a>
+      <a href="https://play.reversemathpuzzle.com/" target="_blank" rel="noopener">Play in browser</a>
+      <a href="/support/">Support</a>
       <a href="/privacy-policy/">Privacy Policy</a>
       <a href="/tos/">Terms of Service</a>
-      <a href="/support/">Support</a>
+      <a href="/delete-data/">Delete my data</a>
     </nav>
   </div>
   <div class="footer-bottom">
