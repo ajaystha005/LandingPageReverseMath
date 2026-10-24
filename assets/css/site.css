@@ -283,3 +283,6 @@ body.is-android .platforms .platform:nth-child(2) { order: -1; }
   .demo-eq { gap: 6px; font-size: 1.6rem; }
   .gallery figure { width: 210px; }
 }
+
+/* long links and words wrap instead of overflowing (200% text, narrow phones) */
+.prose, .faq .answer, .card, .footer { overflow-wrap: anywhere; }

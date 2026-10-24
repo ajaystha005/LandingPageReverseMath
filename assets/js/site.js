@@ -13,6 +13,12 @@
     links.addEventListener('click', function (e) { if (e.target.tagName === 'A') { links.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); } });
   }
 
+  d.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && links && links.classList.contains('open')) {
+      links.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); burger.focus();
+    }
+  });
+
   var y = d.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 
   // reveal on scroll
