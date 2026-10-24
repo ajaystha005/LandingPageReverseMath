@@ -286,3 +286,7 @@ body.is-android .platforms .platform:nth-child(2) { order: -1; }
 
 /* long links and words wrap instead of overflowing (200% text, narrow phones) */
 .prose, .faq .answer, .card, .footer { overflow-wrap: anywhere; }
+
+/* footer sits at the bottom on short pages (404) */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+body > main { flex: 1 0 auto; }
