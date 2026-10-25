@@ -39,7 +39,7 @@
     b.addEventListener('click', function (e) { var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return; if (window.rmSetConsent) window.rmSetConsent(v); b.remove(); });
     d.body.appendChild(b);
   }
-  if (!window.rmConsent) setTimeout(showBanner, 2500);
+  if (!window.rmConsent && window.rmAskConsent && window.rmAskConsent()) setTimeout(showBanner, 2500);
   var cc = d.getElementById('cookie-choices'); if (cc) cc.addEventListener('click', function (e) { e.preventDefault(); showBanner(); });
 
   var y = d.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
