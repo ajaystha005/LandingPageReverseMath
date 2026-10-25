@@ -94,7 +94,7 @@ def render(src):
     tail = f'''
 </main>
 {FOOTER}
-<script src="/assets/js/site.js?v=4" defer></script>
+<script src="/assets/js/site.js?v=5" defer></script>
 </body>
 </html>
 '''

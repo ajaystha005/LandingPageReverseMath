@@ -348,3 +348,5 @@ body:not(.is-ios):not(.is-android) .also .only-web { display: inline; }
 
 @media (min-width: 900px) { .consent { left: auto; right: 16px; margin: 0; max-width: 400px; } }
 .dl-demo .demo-eq { margin: 10px 0 8px; }
+
+@media (max-width: 560px) { .battle-steps { grid-template-columns: repeat(2, 1fr); gap: 22px 12px; } .bstep h3 { font-size: 1rem; } .bstep p { font-size: .85rem; } .bstep .phone { border-width: 4px; border-radius: 26px; margin-bottom: 14px; } .bstep .phone img { border-radius: 20px; } }

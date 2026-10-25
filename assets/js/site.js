@@ -48,7 +48,7 @@
 
   // which sections people reach (counts only)
   if ('IntersectionObserver' in window) {
-    var seen = {}, so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !seen[e.target.id]) { seen[e.target.id] = 1; track('section_view', { section: e.target.id, page_path: location.pathname }); } }); }, { threshold: 0.4 });
+    var seen = {}, so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !seen[e.target.id]) { seen[e.target.id] = 1; track('section_view', { section: e.target.id, page_path: location.pathname }); } }); }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
     [].forEach.call(d.querySelectorAll('section[id]'), function (el) { so.observe(el); });
   }
 
