@@ -25,11 +25,11 @@
   d.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.getAttribute('href') || '', store = h.indexOf('apps.apple.com') > -1 ? 'app_store' : h.indexOf('play.google.com') > -1 ? 'google_play' : h.indexOf('play.reversemathpuzzle.com') > -1 ? 'web_player' : '';
-    if (store) track('download_click', { store: store, page_path: location.pathname });
+    if (store) { track('download_click', { store: store, where: a.getAttribute('data-where') || 'link', page_path: location.pathname }); return; }
   });
   d.addEventListener('toggle', function (e) { var t = e.target; if (t && t.tagName === 'DETAILS' && t.open) { var q = t.querySelector('summary'); track('faq_open', { question: q ? q.textContent.trim().slice(0, 80) : '' }); } }, true);
   d.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a.btn, .nav-links a, .footer a'); if (!a || a.id === 'cookie-choices') return;
+    var a = e.target.closest && e.target.closest('a.btn, .nav-links a, .footer a'); if (!a || a.id === 'cookie-choices' || a.hasAttribute('data-store')) return;
     track('link_tap', { text: (a.textContent || '').trim().slice(0, 40), href: (a.getAttribute('href') || '').slice(0, 100), page_path: location.pathname });
   });
   function showBanner() {

@@ -345,3 +345,6 @@ body:not(.is-ios):not(.is-android) .also .only-web { display: inline; }
 
 /* compact how-it-plays cards on phones */
 @media (max-width: 560px) { .steps { gap: 10px; } .steps .card { padding: 14px 16px; box-shadow: 0 4px 0 var(--ink); } .steps .card h3 { font-size: 1.1rem; } .steps .num { width: 32px; height: 32px; font-size: 1rem; } }
+
+@media (min-width: 900px) { .consent { left: auto; right: 16px; margin: 0; max-width: 400px; } }
+.dl-demo .demo-eq { margin: 10px 0 8px; }

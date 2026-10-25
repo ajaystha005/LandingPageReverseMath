@@ -84,7 +84,7 @@ def render(src):
 <link rel="preload" href="/assets/fonts/nunito-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css?v=2">
 <script>document.documentElement.classList.add("js")</script>
-<script src="/assets/js/analytics.js?v=3"></script>
+<script src="/assets/js/analytics.js?v=4"></script>
 {ld}</head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -94,7 +94,7 @@ def render(src):
     tail = f'''
 </main>
 {FOOTER}
-<script src="/assets/js/site.js?v=3" defer></script>
+<script src="/assets/js/site.js?v=4" defer></script>
 </body>
 </html>
 '''

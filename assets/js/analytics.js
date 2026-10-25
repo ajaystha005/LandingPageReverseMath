@@ -15,9 +15,19 @@
     var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
     return !tz || /^Europe\//.test(tz) || ['Atlantic/Reykjavik', 'Atlantic/Canary', 'Atlantic/Madeira', 'Atlantic/Azores', 'Atlantic/Faroe'].indexOf(tz) > -1;
   };
+  // Visitors we ask (European time zone) are never counted before they answer, whatever their IP says.
+  if (!saved && window.rmAskConsent()) gtag('consent', 'update', { analytics_storage: 'denied' });
+  function clearGa() {
+    var host = location.hostname.split('.').slice(-2).join('.');
+    document.cookie.split(';').forEach(function (c) {
+      var n = c.split('=')[0].trim();
+      if (/^_ga/.test(n)) ['', '; domain=' + host, '; domain=.' + host, '; domain=' + location.hostname].forEach(function (d) { document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d; });
+    });
+  }
   window.rmSetConsent = function (v) {
     try { localStorage.setItem(KEY, v); } catch (e) {}
     gtag('consent', 'update', { analytics_storage: v === 'granted' ? 'granted' : 'denied' });
+    if (v !== 'granted') clearGa();
   };
   window.rmConsent = saved;
   gtag('js', new Date());
