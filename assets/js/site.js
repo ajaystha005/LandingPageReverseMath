@@ -19,6 +19,29 @@
     }
   });
 
+
+  // analytics consent banner and download-click events (Google Analytics 4; see analytics.js)
+  function track(name, params) { if (typeof gtag === 'function') gtag('event', name, params); }
+  d.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.getAttribute('href') || '', store = h.indexOf('apps.apple.com') > -1 ? 'app_store' : h.indexOf('play.google.com') > -1 ? 'google_play' : h.indexOf('play.reversemathpuzzle.com') > -1 ? 'web_player' : '';
+    if (store) track('download_click', { store: store, page_path: location.pathname });
+  });
+  d.addEventListener('toggle', function (e) { var t = e.target; if (t && t.tagName === 'DETAILS' && t.open) { var q = t.querySelector('summary'); track('faq_open', { question: q ? q.textContent.trim().slice(0, 80) : '' }); } }, true);
+  d.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.btn, .nav-links a, .footer a'); if (!a || a.id === 'cookie-choices') return;
+    track('link_tap', { text: (a.textContent || '').trim().slice(0, 40), href: (a.getAttribute('href') || '').slice(0, 100), page_path: location.pathname });
+  });
+  function showBanner() {
+    if (d.getElementById('consent')) return;
+    var b = d.createElement('div'); b.id = 'consent'; b.className = 'consent'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Analytics choice');
+    b.innerHTML = '<p>We count visits with Google Analytics to see which pages and links work. It only sets cookies if you accept. <a href="/privacy-policy/#website">Details</a></p><div class="consent-btns"><button type="button" class="btn btn-ink" data-v="granted">Accept</button><button type="button" class="btn btn-light" data-v="denied">No thanks</button></div>';
+    b.addEventListener('click', function (e) { var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return; if (window.rmSetConsent) window.rmSetConsent(v); b.remove(); });
+    d.body.appendChild(b);
+  }
+  if (!window.rmConsent) showBanner();
+  var cc = d.getElementById('cookie-choices'); if (cc) cc.addEventListener('click', function (e) { e.preventDefault(); showBanner(); });
+
   var y = d.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 
   // reveal on scroll
@@ -47,10 +70,11 @@
     var check = function () {
       if (val.indexOf(null) !== -1) { say('Tap the numbers to fill the blanks.'); return; }
       var r = val[0] * val[1] + val[2], ex = val[0] + ' × ' + val[1] + ' + ' + val[2];
-      if (r === 14) { slots.forEach(function (s) { s.classList.add('ok'); }); say('14! ' + ex + ' = 14. × goes first.', 'ok'); }
-      else { slots.forEach(function (s) { s.classList.add('bad'); }); say('Not quite: ' + ex + ' = ' + r + '. Tap a blank to take a number back.', 'bad'); }
+      if (r === 14) { slots.forEach(function (s) { s.classList.add('ok'); }); say('14! ' + ex + ' = 14. × goes first.', 'ok'); track('demo_result', { result: 'solved' }); }
+      else { slots.forEach(function (s) { s.classList.add('bad'); }); say('Not quite: ' + ex + ' = ' + r + '. Tap a blank to take a number back.', 'bad'); track('demo_result', { result: 'wrong' }); }
     };
-    tiles.forEach(function (t) { t.addEventListener('click', function () { var i = val.indexOf(null); if (i === -1) return; val[i] = +t.dataset.v; render(); check(); }); });
+    var demoStarted = false;
+    tiles.forEach(function (t) { t.addEventListener('click', function () { if (!demoStarted) { demoStarted = true; track('demo_start'); } var i = val.indexOf(null); if (i === -1) return; val[i] = +t.dataset.v; render(); check(); }); });
     slots.forEach(function (s, i) { s.addEventListener('click', function () { if (val[i] === null) return; val[i] = null; render(); say('Tap the numbers to fill the blanks.'); }); });
     demo.querySelector('.demo-reset').addEventListener('click', function () { val = [null, null, null]; render(); say('Tap the numbers to fill the blanks.'); });
     render();
