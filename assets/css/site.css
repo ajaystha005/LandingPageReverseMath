@@ -342,3 +342,6 @@ body:not(.is-ios):not(.is-android) .also .only-web { display: inline; }
 
 .dl-demo .demo-reset { visibility: hidden; }
 .dl-demo:has(.slot.filled) .demo-reset { visibility: visible; }
+
+/* compact how-it-plays cards on phones */
+@media (max-width: 560px) { .steps { gap: 10px; } .steps .card { padding: 14px 16px; box-shadow: 0 4px 0 var(--ink); } .steps .card h3 { font-size: 1.1rem; } .steps .num { width: 32px; height: 32px; font-size: 1rem; } }

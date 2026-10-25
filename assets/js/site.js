@@ -46,6 +46,12 @@
   var sticky = d.getElementById('sticky-install');
   if (sticky) { var onScroll = function () { sticky.hidden = false; sticky.classList.toggle('show', window.scrollY > 380); }; window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); }
 
+  // which sections people reach (counts only)
+  if ('IntersectionObserver' in window) {
+    var seen = {}, so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !seen[e.target.id]) { seen[e.target.id] = 1; track('section_view', { section: e.target.id, page_path: location.pathname }); } }); }, { threshold: 0.4 });
+    [].forEach.call(d.querySelectorAll('section[id]'), function (el) { so.observe(el); });
+  }
+
   var y = d.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 
   // reveal on scroll

@@ -44,9 +44,18 @@ FOOTER = f'''<footer class="footer"><div class="wrap">
 <small>&copy; <span id="year">2026</span> Reverse Math Puzzle. All rights reserved.</small></div></footer>'''
 
 
+STICKY = """<div class="sticky-install" id="sticky-install" hidden>
+  <span><strong>Reverse Math Puzzle</strong><small>Free · iPhone &amp; Android</small></span>
+  <a class="btn btn-ink only-ios-btn" href="{{APP}}" target="_blank" rel="noopener" data-store="ios" data-where="sticky">Get the app</a>
+  <a class="btn btn-ink only-android-btn" href="{{GPLAY}}" target="_blank" rel="noopener" data-store="android" data-where="sticky">Get the app</a>
+</div>
+"""
+
+
 def render(src):
     m = re.match(r"\s*<!--meta (\{.*?\}) -->\n", src, re.S)
     meta = json.loads(m.group(1)); body = src[m.end():]
+    body = body.replace("{{sticky}}", STICKY.replace("{{APP}}", APP).replace("{{GPLAY}}", GPLAY))
     body = body.replace("{{badges:hero}}", badges("hero")).replace("{{badges:battle}}", badges("battle")).replace("{{badges:cta}}", badges("cta")).replace("{{badges:download}}", badges("download"))
     body = body.replace("{{PLAY}}", PLAY).replace("{{APP}}", APP).replace("{{GPLAY}}", GPLAY)
     path = meta["path"]; canon = SITE + (path if path != "/404.html" else "/")
