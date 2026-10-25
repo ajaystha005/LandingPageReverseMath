@@ -42,6 +42,10 @@
   if (!window.rmConsent && window.rmAskConsent && window.rmAskConsent()) setTimeout(showBanner, 2500);
   var cc = d.getElementById('cookie-choices'); if (cc) cc.addEventListener('click', function (e) { e.preventDefault(); showBanner(); });
 
+  if (/BytedanceWebview|musical_ly|trill|Instagram|FBAN|FBAV|Snapchat/i.test(navigator.userAgent || '')) { d.documentElement.classList.add('in-app-browser'); track('in_app_browser', { page_path: location.pathname }); }
+  var sticky = d.getElementById('sticky-install');
+  if (sticky) { var onScroll = function () { sticky.hidden = false; sticky.classList.toggle('show', window.scrollY > 380); }; window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); }
+
   var y = d.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 
   // reveal on scroll
@@ -70,7 +74,7 @@
     var check = function () {
       if (val.indexOf(null) !== -1) { say('Tap the numbers to fill the blanks.'); return; }
       var r = val[0] * val[1] + val[2], ex = val[0] + ' × ' + val[1] + ' + ' + val[2];
-      if (r === 14) { slots.forEach(function (s) { s.classList.add('ok'); }); say('14! ' + ex + ' = 14. × goes first.', 'ok'); track('demo_result', { result: 'solved' }); }
+      if (r === 14) { d.body.classList.add('demo-solved'); slots.forEach(function (s) { s.classList.add('ok'); }); say('14! ' + ex + ' = 14. × goes first.', 'ok'); track('demo_result', { result: 'solved' }); }
       else { slots.forEach(function (s) { s.classList.add('bad'); }); say('Not quite: ' + ex + ' = ' + r + '. Tap a blank to take a number back.', 'bad'); track('demo_result', { result: 'wrong' }); }
     };
     var demoStarted = false;

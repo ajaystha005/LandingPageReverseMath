@@ -312,3 +312,33 @@ body:not(.is-ios):not(.is-android) .also .only-web { display: inline; }
 .consent { padding: 12px 14px; bottom: 10px; left: 10px; right: 10px; border-width: 2px; box-shadow: 0 4px 0 var(--ink); gap: 8px 12px; }
 .consent p { font-size: .85rem; }
 .consent .btn { padding: 8px 16px; font-size: .88rem; }
+
+/* download page: playable hook above the store button */
+.dl h1 { font-size: clamp(2.4rem, 7vw, 4.2rem); }
+.dl .lead { margin-top: 10px; }
+.dl-demo { margin: 18px 0 0; padding: 16px 14px 14px; max-width: 420px; border-radius: 26px; box-shadow: 0 6px 0 var(--ink); }
+.dl-demo .demo-target { padding: 6px 24px 8px; border-radius: 18px; }
+.dl-demo .demo-target strong { font-size: 2.4rem; }
+.dl-demo .demo-eq { margin: 14px 0 12px; font-size: 1.6rem; gap: 8px; }
+.dl-demo .slot, .dl-demo .tile { width: 56px; height: 56px; font-size: 1.6rem; border-radius: 14px; }
+.dl-demo .tiles { min-height: 62px; }
+.dl-demo .demo-msg { font-size: .98rem; margin-top: 8px; }
+.dl-demo .demo-reset { padding: 6px 16px; font-size: .9rem; margin-top: 6px; }
+.dl .hero-actions { margin-top: 20px; gap: 12px; }
+.solved-note { display: none; font-weight: 800; }
+.demo-solved .solved-note { display: block; }
+.demo-solved .dl .badges a { animation: nudge 1.2s ease-in-out 2; }
+@keyframes nudge { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+.iab-tip { display: none; font-size: .9rem; font-weight: 700; background: rgba(255,255,255,.6); border-radius: 12px; padding: 8px 12px; }
+.in-app-browser .iab-tip { display: block; }
+@media (max-width: 560px) { .dl .hero-in { gap: 18px; } .dl .phone { max-width: 150px; } }
+/* sticky install bar (phones, after the first screen) */
+.sticky-install { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: none; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--paper); border-top: 3px solid var(--ink); }
+.sticky-install span { display: grid; line-height: 1.2; }
+.sticky-install small { color: var(--muted); font-weight: 700; }
+.sticky-install .btn { display: none; padding: 10px 18px; }
+.is-ios .sticky-install .only-ios-btn, .is-android .sticky-install .only-android-btn { display: inline-flex; }
+@media (max-width: 760px) { .is-ios .sticky-install.show, .is-android .sticky-install.show { display: flex; } body:has(#consent) .sticky-install { display: none !important; } }
+
+.dl-demo .demo-reset { visibility: hidden; }
+.dl-demo:has(.slot.filled) .demo-reset { visibility: visible; }
