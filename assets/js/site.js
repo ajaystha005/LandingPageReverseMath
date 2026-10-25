@@ -35,11 +35,11 @@
   function showBanner() {
     if (d.getElementById('consent')) return;
     var b = d.createElement('div'); b.id = 'consent'; b.className = 'consent'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Analytics choice');
-    b.innerHTML = '<p>We count visits with Google Analytics to see which pages and links work. It only sets cookies if you accept. <a href="/privacy-policy/#website">Details</a></p><div class="consent-btns"><button type="button" class="btn btn-ink" data-v="granted">Accept</button><button type="button" class="btn btn-light" data-v="denied">No thanks</button></div>';
+    b.innerHTML = '<p>We count visits with Google Analytics. Cookies only if you accept. <a href="/privacy-policy/#website">Details</a></p><div class="consent-btns"><button type="button" class="btn btn-ink" data-v="granted">Accept</button><button type="button" class="btn btn-light" data-v="denied">No thanks</button></div>';
     b.addEventListener('click', function (e) { var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return; if (window.rmSetConsent) window.rmSetConsent(v); b.remove(); });
     d.body.appendChild(b);
   }
-  if (!window.rmConsent) showBanner();
+  if (!window.rmConsent) setTimeout(showBanner, 2500);
   var cc = d.getElementById('cookie-choices'); if (cc) cc.addEventListener('click', function (e) { e.preventDefault(); showBanner(); });
 
   var y = d.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
