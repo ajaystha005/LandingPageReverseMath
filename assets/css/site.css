@@ -367,3 +367,6 @@ body:not(.is-ios):not(.is-android) .also .only-web { display: inline; }
 
 /* phones: the playable puzzle is the picture, so the hero stays short */
 @media (max-width: 760px) { .hero.dl .hero-phones { display: none; } .hero.dl .hero-in { padding-bottom: 28px; } }
+
+/* anchors land below the fixed header */
+#daily, #battle, #levels, #screens, #get, #why, #web { scroll-margin-top: 76px; }
