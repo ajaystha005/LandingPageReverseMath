@@ -350,3 +350,20 @@ body:not(.is-ios):not(.is-android) .also .only-web { display: inline; }
 .dl-demo .demo-eq { margin: 10px 0 8px; }
 
 @media (max-width: 560px) { .battle-steps { grid-template-columns: repeat(2, 1fr); gap: 22px 12px; } .bstep h3 { font-size: 1rem; } .bstep p { font-size: .85rem; } .bstep .phone { border-width: 4px; border-radius: 26px; margin-bottom: 14px; } .bstep .phone img { border-radius: 20px; } }
+
+/* short home page: three reasons, one swipe row, one call to action */
+.why-list { display: grid; gap: 26px; max-width: 900px; margin: 0 auto; }
+.why { display: grid; grid-template-columns: 150px 1fr; gap: 22px; align-items: center; }
+.why:nth-child(even) { grid-template-columns: 1fr 150px; }
+.why:nth-child(even) .phone { order: 2; }
+.why .phone { box-shadow: 0 6px 0 rgba(43, 29, 0, .22); border-width: 4px; border-radius: 26px; }
+.why .phone img { border-radius: 20px; }
+.why h2 { font-size: 1.5rem; margin-bottom: 6px; }
+.why p { color: var(--muted); font-weight: 600; }
+@media (min-width: 760px) { .why { grid-template-columns: 220px 1fr; gap: 40px; } .why:nth-child(even) { grid-template-columns: 1fr 220px; } .why h2 { font-size: 2rem; } }
+.tile, .dl-demo .tile { touch-action: none; user-select: none; -webkit-user-select: none; }
+.tile-ghost { position: fixed; z-index: 999; pointer-events: none; transform: translate(-50%, -50%) scale(1.1); opacity: .95; }
+.slot.over { border-color: var(--ink); background: var(--gold-soft); }
+
+/* phones: the playable puzzle is the picture, so the hero stays short */
+@media (max-width: 760px) { .hero.dl .hero-phones { display: none; } .hero.dl .hero-in { padding-bottom: 28px; } }

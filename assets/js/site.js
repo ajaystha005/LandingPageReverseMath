@@ -49,7 +49,7 @@
   // which sections people reach (counts only)
   if ('IntersectionObserver' in window) {
     var seen = {}, so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !seen[e.target.id]) { seen[e.target.id] = 1; track('section_view', { section: e.target.id, page_path: location.pathname }); } }); }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
-    [].forEach.call(d.querySelectorAll('section[id]'), function (el) { so.observe(el); });
+    [].forEach.call(d.querySelectorAll('section[id], [data-sv]'), function (el) { so.observe(el); });
   }
 
   var y = d.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
@@ -84,7 +84,30 @@
       else { slots.forEach(function (s) { s.classList.add('bad'); }); say('Not quite: ' + ex + ' = ' + r + '. Tap a blank to take a number back.', 'bad'); track('demo_result', { result: 'wrong' }); }
     };
     var demoStarted = false;
-    tiles.forEach(function (t) { t.addEventListener('click', function () { if (!demoStarted) { demoStarted = true; track('demo_start'); } var i = val.indexOf(null); if (i === -1) return; val[i] = +t.dataset.v; render(); check(); }); });
+    var fillAt = function (i, v) { if (i < 0 || val[i] !== null) return; if (!demoStarted) { demoStarted = true; track('demo_start'); } val[i] = v; render(); check(); };
+    tiles.forEach(function (t) {
+      // tap puts the number in the first blank; dragging it onto a blank puts it there (touch and mouse)
+      t.addEventListener('pointerdown', function (e) {
+        if (t.disabled || (e.button && e.button !== 0)) return;
+        var sx = e.clientX, sy = e.clientY, moved = false, ghost = null;
+        try { t.setPointerCapture(e.pointerId); } catch (x) {}
+        var overSlot = function (x, y) { var el = d.elementFromPoint(x, y); el = el && el.closest ? el.closest('.slot') : null; return slots.indexOf(el); };
+        var move = function (ev) {
+          if (!moved && Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) > 8) { moved = true; ghost = t.cloneNode(true); ghost.className = 'tile tile-ghost'; ghost.removeAttribute('id'); d.body.appendChild(ghost); }
+          if (moved) { ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px'; var o = overSlot(ev.clientX, ev.clientY); slots.forEach(function (s, k) { s.classList.toggle('over', k === o && val[k] === null); }); }
+        };
+        var up = function (ev) {
+          t.removeEventListener('pointermove', move); t.removeEventListener('pointerup', up); t.removeEventListener('pointercancel', up);
+          slots.forEach(function (s) { s.classList.remove('over'); });
+          if (ghost) ghost.remove();
+          if (ev.type === 'pointercancel') return;
+          if (moved) { var o = overSlot(ev.clientX, ev.clientY); if (o > -1) fillAt(o, +t.dataset.v); }
+          else fillAt(val.indexOf(null), +t.dataset.v);
+        };
+        t.addEventListener('pointermove', move); t.addEventListener('pointerup', up); t.addEventListener('pointercancel', up);
+      });
+      t.addEventListener('click', function (e) { if (e.detail === 0) fillAt(val.indexOf(null), +t.dataset.v); }); // keyboard
+    });
     slots.forEach(function (s, i) { s.addEventListener('click', function () { if (val[i] === null) return; val[i] = null; render(); say('Tap the numbers to fill the blanks.'); }); });
     demo.querySelector('.demo-reset').addEventListener('click', function () { val = [null, null, null]; render(); say('Tap the numbers to fill the blanks.'); });
     render();
