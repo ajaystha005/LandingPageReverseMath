@@ -78,7 +78,7 @@
       tiles.forEach(function (t) { t.disabled = val.indexOf(+t.dataset.v) !== -1; });
     };
     var check = function () {
-      if (val.indexOf(null) !== -1) { say('Tap the numbers to fill the blanks.'); return; }
+      if (val.indexOf(null) !== -1) { say('Drag or tap a number into a blank.'); return; }
       var r = val[0] * val[1] + val[2], ex = val[0] + ' × ' + val[1] + ' + ' + val[2];
       if (r === 14) { d.body.classList.add('demo-solved'); slots.forEach(function (s) { s.classList.add('ok'); }); say('14! ' + ex + ' = 14. × goes first.', 'ok'); track('demo_result', { result: 'solved' }); }
       else { slots.forEach(function (s) { s.classList.add('bad'); }); say('Not quite: ' + ex + ' = ' + r + '. Tap a blank to take a number back.', 'bad'); track('demo_result', { result: 'wrong' }); }
@@ -108,8 +108,8 @@
       });
       t.addEventListener('click', function (e) { if (e.detail === 0) fillAt(val.indexOf(null), +t.dataset.v); }); // keyboard
     });
-    slots.forEach(function (s, i) { s.addEventListener('click', function () { if (val[i] === null) return; val[i] = null; render(); say('Tap the numbers to fill the blanks.'); }); });
-    demo.querySelector('.demo-reset').addEventListener('click', function () { val = [null, null, null]; render(); say('Tap the numbers to fill the blanks.'); });
+    slots.forEach(function (s, i) { s.addEventListener('click', function () { if (val[i] === null) return; val[i] = null; render(); say('Drag or tap a number into a blank.'); }); });
+    demo.querySelector('.demo-reset').addEventListener('click', function () { val = [null, null, null]; render(); say('Drag or tap a number into a blank.'); });
     render();
   }
 })();
