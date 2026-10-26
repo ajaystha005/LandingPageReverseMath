@@ -16,7 +16,8 @@
     return !tz || /^Europe\//.test(tz) || ['Atlantic/Reykjavik', 'Atlantic/Canary', 'Atlantic/Madeira', 'Atlantic/Azores', 'Atlantic/Faroe'].indexOf(tz) > -1;
   };
   // Visitors we ask (European time zone) are never counted before they answer, whatever their IP says.
-  if (!saved && window.rmAskConsent()) gtag('consent', 'update', { analytics_storage: 'denied' });
+  // A browser Global Privacy Control signal is treated as "no" (no banner, nothing counted).
+  if (!saved && (window.rmAskConsent() || navigator.globalPrivacyControl === true)) gtag('consent', 'update', { analytics_storage: 'denied' });
   function clearGa() {
     var host = location.hostname.split('.').slice(-2).join('.');
     document.cookie.split(';').forEach(function (c) {
