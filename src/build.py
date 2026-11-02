@@ -32,20 +32,20 @@ def nav(active):
         cur = ' aria-current="page"' if key == active else ""
         li += f'<li><a href="{href}"{ext}{cur}>{label}</a></li>'
     li += '<li><a class="nav-cta" href="/download/"' + (' aria-current="page"' if active == "download" else "") + '>Get the app</a></li>'
-    return (f'<header class="nav"><div class="wrap nav-in"><a class="brand" href="/"><img src="/app_icon_1024.png" width="40" height="40" alt="">Reverse Math Puzzle</a>'
+    return (f'<header class="nav"><div class="wrap nav-in"><a class="brand" href="/"><img src="/app_icon_1024.png" width="40" height="40" alt="">ReverseMath</a>'
             f'<button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>'
             f'<ul class="nav-links" id="nav-links">{li}</ul></div></header>')
 
 
 FOOTER = f'''<footer class="footer"><div class="wrap">
-<div class="footer-in"><div><a class="brand" href="/"><img src="/app_icon_1024.png" width="40" height="40" alt="">Reverse Math Puzzle</a>
+<div class="footer-in"><div><a class="brand" href="/"><img src="/app_icon_1024.png" width="40" height="40" alt="">ReverseMath</a>
 <p>A daily number puzzle with friend battles, for iPhone and Android.</p></div>
 <nav aria-label="Footer"><a href="/download/">Get the app</a><a href="{PLAY}" target="_blank" rel="noopener">Play in browser</a><a href="/support/">Support</a><a href="/privacy-policy/">Privacy policy</a><a href="/tos/">Terms of service</a><a href="/delete-data/">Delete my data</a><a href="#" id="cookie-choices">Cookie choices</a></nav></div>
 <small>&copy; <span id="year">2026</span> Reverse Math Puzzle. All rights reserved.</small></div></footer>'''
 
 
 STICKY = """<div class="sticky-install" id="sticky-install" hidden>
-  <span><strong>Reverse Math Puzzle</strong><small>Free · iPhone &amp; Android</small></span>
+  <span><strong>ReverseMath</strong><small>Free · iPhone &amp; Android</small></span>
   <a class="btn btn-ink only-ios-btn" href="{{APP}}" target="_blank" rel="noopener" data-store="ios" data-where="sticky">Get the app</a>
   <a class="btn btn-ink only-android-btn" href="{{GPLAY}}" target="_blank" rel="noopener" data-store="android" data-where="sticky">Get the app</a>
 </div>
@@ -76,9 +76,9 @@ def render(src):
 <meta name="theme-color" content="#F2A81D">
 <link rel="icon" href="/app_icon_1024.png" type="image/png">
 <link rel="apple-touch-icon" href="/app_icon_1024.png">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Reverse Math Puzzle">
+<meta property="og:type" content="website"><meta property="og:site_name" content="ReverseMath">
 <meta property="og:url" content="{canon}"><meta property="og:title" content="{esc(meta.get("ogtitle", title))}"><meta property="og:description" content="{esc(desc)}">
-<meta property="og:image" content="{og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="628"><meta property="og:image:alt" content="Reverse Math Puzzle: fill the blanks, hit the target. Free on iPhone and Android.">
+<meta property="og:image" content="{og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="628"><meta property="og:image:alt" content="ReverseMath: fill the blanks, hit the target. Free on iPhone and Android.">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(meta.get("ogtitle", title))}"><meta name="twitter:description" content="{esc(desc)}"><meta name="twitter:image" content="{og}">
 <link rel="preload" href="/assets/fonts/nunito-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/nunito-Regular.woff2" as="font" type="font/woff2" crossorigin>
