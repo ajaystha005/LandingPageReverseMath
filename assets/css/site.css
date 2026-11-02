@@ -380,3 +380,15 @@ body:not(.is-ios):not(.is-android) .also .only-web { display: inline; }
 .step-n { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--gold); border: 2px solid var(--ink); font-weight: 900; }
 .try { text-align: center; margin-top: clamp(28px, 4vw, 44px); }
 @media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 44px; } .steps .phone { width: min(240px, 70%); } }
+
+/* v3b: crop empty phone bottoms, survival band */
+.steps .phone, .why .phone, .surv-phones .phone { border-bottom: 0; border-radius: 34px 34px 0 0; box-shadow: none; }
+.steps .phone img, .why .phone img, .surv-phones .phone img { aspect-ratio: 520 / 780; object-fit: cover; object-position: top; border-radius: 28px 28px 0 0; }
+.why .phone { border-radius: 24px 24px 0 0; } .why .phone img { border-radius: 18px 18px 0 0; aspect-ratio: 520 / 700; }
+.steps .phone { width: min(230px, 100%); margin-bottom: 18px; }
+.surv-phones { display: flex; justify-content: center; }
+.surv-phones .phone { width: min(280px, 70%); }
+.ticks { list-style: none; padding: 0; margin: 18px 0 24px; display: grid; gap: 8px; font-weight: 800; }
+.ticks li::before { content: "✓"; display: inline-grid; place-items: center; width: 24px; height: 24px; margin-right: 10px; border-radius: 50%; background: var(--gold); color: var(--ink); font-size: .85rem; }
+#survival { scroll-margin-top: 76px; }
+@media (max-width: 760px) { #survival .split { gap: 28px; } .surv-phones .phone { width: min(240px, 66%); } }

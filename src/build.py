@@ -25,7 +25,7 @@ def badges(where):
 
 
 def nav(active):
-    items = [("daily", "/#daily", "Daily"), ("battle", "/#battle", "Battles"), ("web", PLAY, "Play in browser"), ("support", "/support/", "Support")]
+    items = [("daily", "/#daily", "Daily"), ("survival", "/#survival", "Survival"), ("battle", "/#battle", "Battles"), ("web", PLAY, "Play in browser"), ("support", "/support/", "Support")]
     li = ""
     for key, href, label in items:
         ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
