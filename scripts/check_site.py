@@ -13,7 +13,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 WIDTHS = [360, 390, 768, 1280, 1920]
-PAGES = ["/", "/download/", "/support/", "/tos/", "/privacy-policy/", "/delete-data/", "/404.html"]
+PAGES = ["/", "/how-to-play/", "/daily-math-puzzle/", "/math-puzzle-game/", "/brain-teasers/", "/survival-mode/", "/live-arena/", "/faq/", "/download/", "/support/", "/tos/", "/privacy-policy/", "/delete-data/", "/404.html"]
 fails = []
 
 

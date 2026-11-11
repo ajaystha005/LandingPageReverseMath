@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.reversemathpuzzle.com/</loc></url>
-  <url><loc>https://www.reversemathpuzzle.com/download</loc></url>
-  <url><loc>https://www.reversemathpuzzle.com/support</loc></url>
-  <url><loc>https://www.reversemathpuzzle.com/delete-data</loc></url>
-  <url><loc>https://www.reversemathpuzzle.com/privacy-policy</loc></url>
-  <url><loc>https://www.reversemathpuzzle.com/tos</loc></url>
+  <url><loc>https://www.reversemathpuzzle.com/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/brain-teasers/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/daily-math-puzzle/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/delete-data/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/download/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/faq/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/how-to-play/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/live-arena/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/math-puzzle-game/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/privacy-policy/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/support/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/survival-mode/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://www.reversemathpuzzle.com/tos/</loc><lastmod>2026-11-11</lastmod></url>
 </urlset>

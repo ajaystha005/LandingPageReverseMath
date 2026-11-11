@@ -25,23 +25,25 @@ def badges(where):
 
 
 def nav(active):
-    items = [("daily", "/#daily", "Daily"), ("survival", "/#survival", "Survival"), ("battle", "/#battle", "Battles"), ("web", PLAY, "Play in browser"), ("support", "/support/", "Support")]
+    items = [("how", "/how-to-play/", "How to play"), ("modes", "/math-puzzle-game/", "Modes"), ("faq", "/faq/", "FAQ"), ("support", "/support/", "Support"), ("web", PLAY, "Play")]
     li = ""
     for key, href, label in items:
         ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
         cur = ' aria-current="page"' if key == active else ""
         li += f'<li><a href="{href}"{ext}{cur}>{label}</a></li>'
     li += '<li><a class="nav-cta" href="/download/"' + (' aria-current="page"' if active == "download" else "") + '>Get the app</a></li>'
-    return (f'<header class="nav"><div class="wrap nav-in"><a class="brand" href="/"><img src="/app_icon_1024.png" width="40" height="40" alt="">ReverseMath</a>'
+    return (f'<header class="nav"><div class="wrap nav-in"><a class="brand" href="/"><img src="/app_icon_96.png" width="40" height="40" alt="">ReverseMath</a>'
             f'<button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>'
             f'<ul class="nav-links" id="nav-links">{li}</ul></div></header>')
 
 
 FOOTER = f'''<footer class="footer"><div class="wrap">
-<div class="footer-in"><div><a class="brand" href="/"><img src="/app_icon_1024.png" width="40" height="40" alt="">ReverseMath</a>
+<div class="footer-in"><div><a class="brand" href="/"><img src="/app_icon_96.png" width="40" height="40" alt="">ReverseMath</a>
 <p>A free math game with daily puzzles and friend battles, for iPhone and Android.</p></div>
-<nav aria-label="Footer"><a href="/download/">Get the app</a><a href="{PLAY}" target="_blank" rel="noopener">Play in browser</a><a href="/support/">Support</a><a href="/privacy-policy/">Privacy policy</a><a href="/tos/">Terms of service</a><a href="/delete-data/">Delete my data</a><a href="#" id="cookie-choices">Cookie choices</a></nav></div>
-<small>&copy; <span id="year">2026</span> Reverse Math Puzzle. All rights reserved.</small></div></footer>'''
+<nav aria-label="Footer"><div><strong>Play</strong><a href="/how-to-play/">How to play</a><a href="/daily-math-puzzle/">Daily math puzzle</a><a href="/math-puzzle-game/">Math puzzle game</a><a href="/brain-teasers/">Brain teasers</a><a href="{PLAY}" target="_blank" rel="noopener">Play in browser</a></div>
+<div><strong>Modes</strong><a href="/survival-mode/">Survival</a><a href="/live-arena/">Live Arena</a><a href="/download/">Get the app</a></div>
+<div><strong>Help</strong><a href="/faq/">FAQ</a><a href="/support/">Support</a><a href="/delete-data/">Delete my data</a><a href="/privacy-policy/">Privacy policy</a><a href="/tos/">Terms of service</a><a href="#" id="cookie-choices">Cookie choices</a></div></nav></div>
+<small>&copy; <span id="year">2026</span> ReverseMath. All rights reserved.</small></div></footer>'''
 
 
 STICKY = """<div class="sticky-install" id="sticky-install" hidden>
@@ -64,6 +66,7 @@ def render(src):
     ld = ""
     for block in meta.get("jsonld", []):
         ld += f'<script type="application/ld+json">{json.dumps(block, ensure_ascii=False, separators=(",", ":"))}</script>\n'
+    canonical = "" if path == "/404.html" else f'<link rel="canonical" href="{canon}">\n'
     robots = '<meta name="robots" content="noindex">\n' if (path == "/404.html" or meta.get("noindex")) else ""
     head = f'''<!doctype html>
 <html lang="en">
@@ -72,9 +75,9 @@ def render(src):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{esc(desc)}">
-{robots}<link rel="canonical" href="{canon}">
+{robots}{canonical}
 <meta name="theme-color" content="#F2A81D">
-<link rel="icon" href="/app_icon_1024.png" type="image/png">
+<link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="/app_icon_1024.png">
 <meta property="og:type" content="website"><meta property="og:site_name" content="ReverseMath">
 <meta property="og:url" content="{canon}"><meta property="og:title" content="{esc(meta.get("ogtitle", title))}"><meta property="og:description" content="{esc(desc)}">
@@ -82,7 +85,7 @@ def render(src):
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(meta.get("ogtitle", title))}"><meta name="twitter:description" content="{esc(desc)}"><meta name="twitter:image" content="{og}">
 <link rel="preload" href="/assets/fonts/nunito-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/nunito-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/site.css?v=2">
+<link rel="stylesheet" href="/assets/css/site.css?v=3">
 <script>document.documentElement.classList.add("js")</script>
 <script src="/assets/js/analytics.js?v=5"></script>
 {ld}</head>
@@ -101,14 +104,37 @@ def render(src):
     return path, head + body.strip() + "\n" + tail
 
 
+def lastmod(src_file):
+    """The date of the commit that last changed the page's source (YYYY-MM-DD); a page with uncommitted changes, or not committed yet, gets today's date (the day it is built for publishing).
+    Never the file's mtime. Stops the build on an empty or invalid value."""
+    import datetime, subprocess
+    rel = os.path.join("src/pages", src_file)
+    dirty = subprocess.run(["git", "status", "--porcelain", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    log = subprocess.run(["git", "log", "-1", "--format=%cs", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    value = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d") if (dirty or not log) else log
+    try:
+        datetime.datetime.strptime(value, "%Y-%m-%d")
+    except ValueError:
+        sys.exit(f"sitemap: invalid lastmod {value!r} for {src_file}")
+    return value
+
+
+def sitemap(entries):
+    rows = "".join(f"  <url><loc>{SITE}{path}</loc><lastmod>{lm}</lastmod></url>\n" for path, lm in entries)
+    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{rows}</urlset>\n'
+
+
 def out_path(path):
     return os.path.join(ROOT, "404.html" if path == "/404.html" else path.strip("/") + "/index.html" if path != "/" else "index.html")
 
 
 def main():
-    check = "--check" in sys.argv; bad = []
+    check = "--check" in sys.argv; bad = []; entries = []
     for f in sorted(os.listdir(os.path.join(ROOT, "src/pages"))):
-        path, html = render(read("src/pages/" + f)); op = out_path(path)
+        src = read("src/pages/" + f)
+        path, html = render(src); op = out_path(path)
+        if path != "/404.html" and not path.startswith("/go/") and '"noindex"' not in src.split("-->")[0]:
+            entries.append((path, lastmod(f)))
         if check:
             cur = open(op, encoding="utf-8").read() if os.path.exists(op) else None
             if cur != html: bad.append(op)
@@ -116,6 +142,13 @@ def main():
             os.makedirs(os.path.dirname(op), exist_ok=True)
             with open(op, "w", encoding="utf-8") as fh: fh.write(html)
             print("wrote", os.path.relpath(op, ROOT))
+    entries.sort(key=lambda e: (e[0] != "/", e[0]))
+    xml = sitemap(entries); sp = os.path.join(ROOT, "sitemap.xml")
+    if check:
+        if (open(sp, encoding="utf-8").read() if os.path.exists(sp) else None) != xml: bad.append(sp)
+    else:
+        with open(sp, "w", encoding="utf-8") as fh: fh.write(xml)
+        print("wrote sitemap.xml", len(entries), "URLs")
     if check:
         if bad: print("OUT OF DATE (run python3 src/build.py):", *bad, sep="\n  "); sys.exit(1)
         print("build is up to date")
