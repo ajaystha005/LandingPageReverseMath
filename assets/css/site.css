@@ -406,7 +406,7 @@ details.teaser p { padding: 0 0 12px; }
 .footer nav strong { color: var(--gold); font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; }
 
 .hero h1.h1-long { font-size: clamp(1.9rem, 4.4vw, 3rem); letter-spacing: -.02em; line-height: 1.1; }
-.hero .tagline { font-weight: 900; font-size: clamp(2.7rem, 6.2vw, 4.8rem); letter-spacing: -.035em; line-height: 1.05; margin: 14px 0 6px; }
+.hero .tagline { font-weight: 900; font-size: clamp(2.7rem, 6.2vw, 4.8rem); letter-spacing: -.035em; line-height: 1.05; margin: 14px 0 6px; padding-bottom: 14px; }
 .hero .tagline em { font-style: normal; background: var(--paper); border: 3px solid var(--ink); box-shadow: var(--shadow); border-radius: 18px; padding: 0 .22em; display: inline-block; transform: rotate(-1.5deg); margin-top: 8px; }
 .why h3 { font-size: 1.5rem; margin-bottom: 6px; }
 @media (min-width: 760px) { .why h3 { font-size: 2rem; } }
