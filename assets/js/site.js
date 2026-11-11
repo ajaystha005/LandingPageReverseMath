@@ -25,7 +25,8 @@
   d.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.getAttribute('href') || '', store = h.indexOf('apps.apple.com') > -1 ? 'app_store' : h.indexOf('play.google.com') > -1 ? 'google_play' : h.indexOf('play.reversemathpuzzle.com') > -1 ? 'web_player' : '';
-    if (store) { track('download_click', { store: store, where: a.getAttribute('data-where') || 'link', page_path: location.pathname }); return; }
+    // GA4 names (2026-11): platform (ios | android | web) and surface (the badge's position) are registered event dimensions; this event used the unregistered names store and where (page_path is not needed: GA4 reads page_location)
+    if (store) { track('download_click', { platform: store === 'app_store' ? 'ios' : store === 'google_play' ? 'android' : 'web', surface: a.getAttribute('data-where') || 'link' }); return; }
   });
   d.addEventListener('toggle', function (e) { var t = e.target; if (t && t.tagName === 'DETAILS' && t.open) { var q = t.querySelector('summary'); track('faq_open', { question: q ? q.textContent.trim().slice(0, 80) : '' }); } }, true);
   d.addEventListener('click', function (e) {
