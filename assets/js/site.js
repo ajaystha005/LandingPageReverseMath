@@ -1,4 +1,4 @@
-/* Reverse Math Puzzle marketing site: nav, reveal-on-scroll, the tap-to-solve demo, platform hint. No tracking. */
+/* ReverseMath marketing site: nav, reveal-on-scroll, the tap-to-solve demo, platform hint. No tracking. */
 (function () {
   var d = document, root = d.documentElement;
   root.classList.add('js');
