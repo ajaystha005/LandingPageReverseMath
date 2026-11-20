@@ -69,48 +69,95 @@
   if (/Android/i.test(ua)) d.body.classList.add('is-android'); else if (/iPhone|iPad|iPod/i.test(ua)) d.body.classList.add('is-ios');
 
   // tap-to-solve demo: ? × ? + ? = 14 with 3, 2, 4 (3 × 4 + 2 and 4 × 3 + 2 both work)
+  // Tap puts the number in the first blank. Drag drops it on a blank. Pointer events (touch, pen, mouse), with a click fallback for old browsers and keyboards.
   var demo = d.getElementById('demo');
   if (demo) {
     var slots = [].slice.call(demo.querySelectorAll('.slot')), tiles = [].slice.call(demo.querySelectorAll('.tile')),
-        msg = demo.querySelector('.demo-msg'), val = [null, null, null];
+        msg = demo.querySelector('.demo-msg'), val = [null, null, null],
+        calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches,
+        hasPointer = 'PointerEvent' in window;
     var say = function (t, c) { msg.textContent = t; msg.className = 'demo-msg ' + (c || ''); };
     var render = function () {
       slots.forEach(function (s, i) { s.textContent = val[i] === null ? '?' : val[i]; s.classList.toggle('filled', val[i] !== null); s.classList.remove('ok', 'bad'); s.setAttribute('aria-label', val[i] === null ? 'Empty blank ' + (i + 1) : 'Blank ' + (i + 1) + ': ' + val[i]); });
       tiles.forEach(function (t) { t.disabled = val.indexOf(+t.dataset.v) !== -1; });
     };
+    var burst = function () {
+      if (calm) return;
+      var colors = ['#F2A81D', '#FFD65C', '#3FA866', '#E5533D', '#2D6FA4'], n = 16, host = demo.querySelector('.demo-top') || demo;
+      for (var k = 0; k < n; k++) {
+        var b = d.createElement('i'), a = (Math.PI * 2 * k) / n + Math.random() * .4, r = 60 + Math.random() * 40;
+        b.className = 'bit'; b.style.setProperty('--dx', Math.cos(a) * r + 'px'); b.style.setProperty('--dy', Math.sin(a) * r + 'px'); b.style.background = colors[k % colors.length];
+        host.appendChild(b); setTimeout(function (x) { x.remove(); }, 900, b);
+      }
+    };
     var check = function () {
       if (val.indexOf(null) !== -1) { say('Drag or tap a number into a blank.'); return; }
       var r = val[0] * val[1] + val[2], ex = val[0] + ' × ' + val[1] + ' + ' + val[2];
-      if (r === 14) { d.body.classList.add('demo-solved'); slots.forEach(function (s) { s.classList.add('ok'); }); say('14! ' + ex + ' = 14. × goes first.', 'ok'); track('demo_result', { result: 'solved' }); }
-      else { slots.forEach(function (s) { s.classList.add('bad'); }); say('Not quite: ' + ex + ' = ' + r + '. Tap a blank to take a number back.', 'bad'); track('demo_result', { result: 'wrong' }); }
+      if (r === 14) {
+        d.body.classList.add('demo-solved'); slots.forEach(function (s) { s.classList.add('ok'); }); say('14! ' + ex + ' = 14. × goes first.', 'ok');
+        demo.classList.remove('win'); void demo.offsetWidth; demo.classList.add('win'); burst();
+        track('demo_result', { result: 'solved' }); track('demo_puzzle_solved', { mode: 'demo', level: 'novice' });
+      } else { slots.forEach(function (s) { s.classList.add('bad'); }); say('Not quite: ' + ex + ' = ' + r + '. Tap a blank to take a number back.', 'bad'); track('demo_result', { result: 'wrong' }); }
     };
     var demoStarted = false;
-    var fillAt = function (i, v) { if (i < 0 || val[i] !== null) return; if (!demoStarted) { demoStarted = true; track('demo_start'); } val[i] = v; render(); check(); };
+    var fillAt = function (i, v) {
+      if (i < 0 || val[i] !== null) return;
+      if (!demoStarted) { demoStarted = true; track('demo_start'); }
+      val[i] = v; render();
+      slots[i].classList.remove('pop'); void slots[i].offsetWidth; slots[i].classList.add('pop');
+      check();
+    };
+    // the blank under the finger; a blank counts a little beyond its edge so a near miss still lands
+    var slotAt = function (x, y) {
+      var best = -1, bd = 1e9;
+      slots.forEach(function (s, k) {
+        var r = s.getBoundingClientRect(), pad = 14;
+        if (x < r.left - pad || x > r.right + pad || y < r.top - pad || y > r.bottom + pad) return;
+        var dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2), dist = dx * dx + dy * dy;
+        if (dist < bd) { bd = dist; best = k; }
+      });
+      return best;
+    };
+    var firstEmpty = function () { return val.indexOf(null); };
     tiles.forEach(function (t) {
-      // tap puts the number in the first blank; dragging it onto a blank puts it there (touch and mouse)
-      t.addEventListener('pointerdown', function (e) {
-        if (t.disabled || (e.button && e.button !== 0)) return;
-        var sx = e.clientX, sy = e.clientY, moved = false, ghost = null;
-        try { t.setPointerCapture(e.pointerId); } catch (x) {}
-        var overSlot = function (x, y) { var el = d.elementFromPoint(x, y); el = el && el.closest ? el.closest('.slot') : null; return slots.indexOf(el); };
+      if (hasPointer) t.addEventListener('pointerdown', function (e) {
+        if (t.disabled || (e.pointerType === 'mouse' && e.button !== 0)) return;
+        var sx = e.clientX, sy = e.clientY, pid = e.pointerId, moved = false, far = 0, ghost = null, done = false;
+        t.classList.add('lift');
+        var cleanup = function () {
+          done = true; t.classList.remove('lift', 'dragging');
+          d.removeEventListener('pointermove', move); d.removeEventListener('pointerup', up); d.removeEventListener('pointercancel', cancel);
+          slots.forEach(function (s) { s.classList.remove('over'); });
+          if (ghost) { ghost.remove(); ghost = null; }
+        };
         var move = function (ev) {
-          if (!moved && Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) > 8) { moved = true; ghost = t.cloneNode(true); ghost.className = 'tile tile-ghost'; ghost.removeAttribute('id'); d.body.appendChild(ghost); }
-          if (moved) { ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px'; var o = overSlot(ev.clientX, ev.clientY); slots.forEach(function (s, k) { s.classList.toggle('over', k === o && val[k] === null); }); }
+          if (ev.pointerId !== pid || done) return;
+          var dist = Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy); far = Math.max(far, dist);
+          if (!moved && dist > 10) { moved = true; t.classList.add('dragging'); ghost = t.cloneNode(true); ghost.className = 'tile tile-ghost'; ghost.removeAttribute('id'); ghost.setAttribute('aria-hidden', 'true'); d.body.appendChild(ghost); }
+          if (moved && ghost) { ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px'; var o = slotAt(ev.clientX, ev.clientY); slots.forEach(function (s, k) { s.classList.toggle('over', k === o && val[k] === null); }); }
         };
         var up = function (ev) {
-          t.removeEventListener('pointermove', move); t.removeEventListener('pointerup', up); t.removeEventListener('pointercancel', up);
-          slots.forEach(function (s) { s.classList.remove('over'); });
-          if (ghost) ghost.remove();
-          if (ev.type === 'pointercancel') return;
-          if (moved) { var o = overSlot(ev.clientX, ev.clientY); if (o > -1) fillAt(o, +t.dataset.v); }
-          else fillAt(val.indexOf(null), +t.dataset.v);
+          if (ev.pointerId !== pid || done) return;
+          var o = moved ? slotAt(ev.clientX, ev.clientY) : -1, v = +t.dataset.v;
+          cleanup();
+          if (moved && o > -1 && val[o] === null) fillAt(o, v);
+          else if (far <= 24) fillAt(firstEmpty(), v);   // a tap with a little finger wobble is still a tap
         };
-        t.addEventListener('pointermove', move); t.addEventListener('pointerup', up); t.addEventListener('pointercancel', up);
+        var cancel = function (ev) { if (ev.pointerId === pid) cleanup(); };
+        d.addEventListener('pointermove', move); d.addEventListener('pointerup', up); d.addEventListener('pointercancel', cancel);
       });
-      t.addEventListener('click', function (e) { if (e.detail === 0) fillAt(val.indexOf(null), +t.dataset.v); }); // keyboard
+      // keyboard (detail 0), and every tap where pointer events do not exist
+      t.addEventListener('click', function (e) { if (t.disabled) return; if (!hasPointer || e.detail === 0) fillAt(firstEmpty(), +t.dataset.v); });
     });
     slots.forEach(function (s, i) { s.addEventListener('click', function () { if (val[i] === null) return; val[i] = null; render(); say('Drag or tap a number into a blank.'); }); });
     demo.querySelector('.demo-reset').addEventListener('click', function () { val = [null, null, null]; render(); say('Drag or tap a number into a blank.'); });
     render();
+  }
+
+  // the store card in the hero: counted when seen, and when a badge is tapped
+  var heroCard = d.getElementById('hero-install');
+  if (heroCard) {
+    if ('IntersectionObserver' in window) { var ho = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { track('install_card_shown', { where: 'hero' }); ho.disconnect(); } }, { threshold: 0.6 }); ho.observe(heroCard); }
+    heroCard.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a[data-store]')) track('install_card_click', { where: 'hero' }); });
   }
 })();

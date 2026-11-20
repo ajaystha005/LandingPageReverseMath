@@ -422,3 +422,52 @@ details.teaser p { padding: 0 0 12px; }
 .dl-h2 { font-size: 1.15rem; margin: 18px 0 8px; }
 .dl-more { margin-top: 28px; font-weight: 600; text-align: center; }
 .dl-more a { color: var(--gold-deep); font-weight: 700; }
+
+/* ── play-first home hero (title, the real puzzle, Daily link, store badges) ─────────────────── */
+.hero.pf { background: linear-gradient(180deg, var(--gold) 0%, #F7BC3F 100%); }
+.hero.pf::before { display: none; }
+.pf-in { display: flex; flex-direction: column; align-items: center; text-align: center; padding-block: clamp(22px, 4vw, 44px) clamp(30px, 5vw, 52px); }
+.pf-eyebrow { font-weight: 900; font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; opacity: .72; }
+.pf-title { margin: 8px 0 22px; font-size: clamp(2.3rem, 7.4vw, 4rem); letter-spacing: -.035em; line-height: 1.04; }
+.hero .pf-title em { display: table; margin: 8px auto 0; font-style: normal; background: var(--paper); border: 3px solid var(--ink); box-shadow: var(--shadow); border-radius: 18px; padding: 0 .22em .04em; transform: rotate(-1.5deg); }
+.hero.pf .dl-demo { width: 100%; max-width: 440px; margin: 0; padding: 22px 16px 18px; border-radius: 30px; box-shadow: 0 8px 0 var(--ink); }
+.pf .dl-demo .demo-target { padding: 6px 30px 8px; }
+.pf .dl-demo .demo-target strong { font-size: 2.8rem; }
+.pf .dl-demo .slot, .pf .dl-demo .tile { width: 62px; height: 62px; font-size: 1.8rem; }
+.pf .dl-demo .demo-eq { margin: 16px 0 14px; gap: 10px; }
+.pf .dl-demo .demo-msg { min-height: 2.6em; font-size: 1rem; }
+.pf-daily { margin-top: 26px; }
+.pf-install { margin-top: 24px; display: grid; justify-items: center; gap: 12px; }
+.pf-like { font-weight: 900; font-size: 1.05rem; }
+.pf-install .badges { justify-content: center; }
+.pf-install .badges img[src*="app-store"] { height: 52px; }
+.pf-install .badges img[src*="google-play"] { height: 77px; margin: -12.5px; }
+@media (max-width: 380px) {
+  .pf .dl-demo .slot, .pf .dl-demo .tile { width: 54px; height: 54px; font-size: 1.6rem; }
+  .pf .dl-demo .demo-eq { gap: 6px; }
+  .pf-install .badges img[src*="app-store"] { height: 46px; }
+  .pf-install .badges img[src*="google-play"] { height: 69px; margin: -11.5px; }
+}
+@media (min-width: 900px) { .hero.pf .dl-demo { max-width: 520px; padding: 30px 26px 24px; } .pf .dl-demo .slot, .pf .dl-demo .tile { width: 74px; height: 74px; font-size: 2.1rem; } .pf .dl-demo .demo-target strong { font-size: 3.3rem; } }
+
+/* motion: cards rise on load; tiles lift; a number snaps into its blank with a bounce; a solve bursts and pulses the target; a miss shakes */
+.js .pf-rise { animation: pf-rise .55s cubic-bezier(.2, .8, .2, 1) both; }
+.js .pf-title { animation-delay: .05s; } .js .pf .dl-demo { animation-delay: .12s; } .js .pf-daily { animation-delay: .2s; } .js .pf-install { animation-delay: .28s; }
+@keyframes pf-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.tile { transition: transform .14s cubic-bezier(.2, .8, .2, 1), box-shadow .14s; will-change: transform; }
+.tile.lift { transform: translateY(-6px) scale(1.07); box-shadow: 0 10px 0 var(--ink); }
+.tile.dragging { opacity: .35; }
+.slot.over { transform: scale(1.06); }
+.slot { transition: transform .12s; }
+.slot.pop { animation: pf-pop .32s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes pf-pop { 0% { transform: scale(.7); } 100% { transform: scale(1); } }
+.demo.win .demo-target { animation: pf-pulse .6s ease-out; }
+@keyframes pf-pulse { 0% { transform: scale(1); } 35% { transform: scale(1.14); background: #cdeed7; } 100% { transform: scale(1); } }
+.demo-top { position: relative; display: inline-block; }
+.bit { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4px 0 0 -4px; border-radius: 3px; pointer-events: none; animation: pf-bit .85s cubic-bezier(.1, .7, .3, 1) forwards; }
+@keyframes pf-bit { from { transform: translate(0, 0) scale(1); opacity: 1; } to { transform: translate(var(--dx), var(--dy)) scale(.4) rotate(200deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tile, .slot { transition: none; } .tile.lift { transform: none; } .bit { display: none; } .js .pf-rise { animation: none; } }
+
+.pf .dl-demo .demo-reset { display: none; }
+.pf .dl-demo:has(.slot.filled) .demo-reset { display: inline-flex; }
+.pf .dl-demo .demo-msg { min-height: 0; }
